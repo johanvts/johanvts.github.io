@@ -1,0 +1,45 @@
+outputformat:="svg";
+outputtemplate:="%j%c.%{outputformat}";
+prologues:=3;
+
+hppp:=.2;
+vppp:=.2;
+
+input TEX;
+
+vardef asin primary x = angle((1+-+x),x) enddef;
+u:= 1cm;
+
+beginfig(0);
+  path material, normal;
+  material:= (up--down) scaled 2u;
+  normal := (left--right) scaled 2u;
+  draw material withpen pencircle scaled 2pt;
+  draw normal dashed evenly;
+
+  a:= 30;
+  n:=1.8;
+  path ray[];
+  ray1:=origin--dir(a+angle(left))*3u;
+  ray2:=origin--dir(asin(sind(30)/n))*3u;
+  path p[];
+  p1:=(fullcircle scaled 2u);
+
+  
+  t1 = ypart(ray1 intersectiontimes p1);
+  t2 = ypart((subpath(0,.5) of normal) intersectiontimes p1); 
+  draw subpath(t1,t2) of p1;
+  label.bot(TEX("$\alpha$"),(0,-.1u) + point 0.2 of normal);
+
+  t1 := ypart(ray2 intersectiontimes p1);
+  t2 := ypart((subpath(.5,1) of normal) intersectiontimes p1); 
+  draw subpath(t1,t2) of p1;
+  label.top(TEX("$\beta$"),(0,-.1u) + point 0.8 of normal);
+  
+  draw ray1;
+  drawarrow ray2;
+
+%  label.rt(TEX("$n_2=1.8$"),(.1u,0)+point .1 of material);
+%  label.lft(TEX("$n_1=1.0$"),(-.1u,0)+point .1 of material);
+  endfig;
+  end

@@ -1,0 +1,17 @@
+---
+title: "Emacs 29 C# Setup"
+date: 2023-11-22T01:43:26+01:00
+draft: false
+comments: true
+---
+* Use C# in Emacs 29.1
+
+The internet is full of C# on Emacs guides that are basically outdated now that emacs includes ~csharp-mode~ and ~eglot~ out of the gate.
+
+But, I could not find any guides on what to do instead. Probably because it's really simple. Still you need to know where to look:
+Emacs 29.1 comes preloaded with variable ~eglot-server-programs~ configured to look for ~omnisharp~. So all you have to do is go to [[https://github.com/OmniSharp/omnisharp-roslyn/releases/][Omnisharp releases]] and download the release that fits your system.
+Be aware that you probably need one of the "-net6.0" releases if you are using a recent version of .Net.
+
+Then extract the release to some path and add that path to your ~exec-path~ variable in Emacs. Ex. via ~C-h v exec-path~ and using customize.
+
+Now you should be all set to launch ~M-x eglot~ next time you are in a C# file. At least it works on my machine. 

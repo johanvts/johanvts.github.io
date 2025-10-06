@@ -1,0 +1,25 @@
+This is MetaPost, version 2.00 (MiKTeX 2.9.7250 64-bit) (MiKTeX 2.9.7250 64-bit)  9 APR 2020 21:28
+**svg -s outputtemplate=%j.svg snell.mp
+(C:/Program Files/MiKTeX 2.9/metapost/base/mpost.mp
+(C:/Program Files/MiKTeX 2.9/metapost/base/plain.mp
+Preloading the plain mem file, version 1.005) )
+! I can't open file `svg'.
+<*> svg
+        -s outputtemplate=%j.svg snell.mp
+Please type another input file name: X
+(C:/Users/johan/AppData/Roaming/MiKTeX/2.9/fonts/source/public/levy-font/X.mf
+Warning: outputformat=0: value has the wrong type, assignment ignored.
+! Extra tokens will be flushed.
+<to be read again> 
+                   def
+l.28 def
+         dims = 8.5u#,asc_height#,desc_depth# enddef;
+? 
+>> cmchar
+! Isolated expression.
+<to be read again> 
+                   "Lowercase xi"
+l.53 cmchar "Lowercase xi"
+                          ;
+? X
+

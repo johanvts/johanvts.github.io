@@ -1,0 +1,10 @@
+#+TITLE: "Thesis"
+#+DATE: 2018-11-01T00:00:00+01:00
+#+DRAFT: false
+
+
+* [[thesis.pdf][Similarity Problems in High Dimensions]]
+PhD Thesis, ITU, November 2017
+ 
+* [[FastKernel.pdf][Scalable learning through linearithmic time kernel approximation techniques]]
+Master Thesis, ITU, March 2014

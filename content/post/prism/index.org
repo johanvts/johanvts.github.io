@@ -1,0 +1,105 @@
+---
+title: "Snell's law in MetaPost"
+date: 2020-04-09T00:15:57+03:00
+draft: false
+comments: true
+---
+
+[[https://en.wikipedia.org/wiki/Snell%27s_law][Snell's]] law tells us how a monochromatic light travels through a boundary between
+two different materials: {{< katex inline >}}n_1\sin\alpha=n_2\sin\beta{{< /katex >}}
+
+{{< figure src="snell_0.svg" width="400px">}}
+
+
+The {{< katex inline >}}n_1,n_2{{< /katex>}} values are constants determined by the respective materials.
+
+This  makes for fun MetaPost drawings. The code below draws a prism with a ray of light being refracted according to Snell's law. 
+
+{{< figure src="prism_0.svg" width="400px">}}
+
+Sometimes the angle and materials puts {{< katex inline>}}|\sin(\alpha)n_1/n_2|>1{{< /katex>}}, in that case all the light gets  reflected inside the first material.
+If we mess with the requirements we can make it really difficult for the light to escape from the prism:
+
+{{< figure src="prism_1.svg" width="400px">}}
+
+Open question: If the prism is a convex regular polygon with $n$ sides, what is the smallest {{< katex inline >}}n{{< /katex >}} where {{< katex inline >}}\alpha{{< /katex >}} exists such that the light never escapes the prism?
+Seems impossible for {{<katex inline>}}n=3{{< /katex >}} but for a circle very easy, I guess the answer would be a function of {{< katex inline>}}n_1,n_2{{< /katex >}}. 
+
+#+BEGIN_SRC
+outputformat:="svg";
+outputtemplate:="%j_%c.%{outputformat}";
+hppp:= 0.2;
+vppp:= 0.2;
+
+vardef asin   primary x = angle((1+-+x,x)) enddef ;
+vardef angleat expr t of p = angle (direction t of p) enddef;
+
+u:= 2cm;
+
+path p[],bb,kb;
+bb:=unitsquare scaled 4u shifted (-2u,-1u);
+pair A,B,C,h;
+A=-B=(1,0)*u;
+C=(0,2)*u;
+path tri;
+tri:=A--B--C--cycle;
+
+numeric a[],b[],n[];
+n1=1;
+n2=1.4;
+
+%Parameters
+  % h:= .4[B,C]; %Incidence location
+  % a1:=40; %alpha angle (0-90)
+
+  h:= .4[B,C]; %Incidence location
+  a1:=8; %alpha angle (0-90)
+
+  % h:= .2[B,C]; %Incidence location
+  % a1:=50; %alpha angle (0-90)
+
+beginfig(1);
+  draw tri;
+  draw bb;
+
+  p[1] := h--(dir ((angleat .5 of (B--C)) + 90 + a1)*3u shifted h);
+  draw p1 cutafter bb;
+  p2=p1;
+  boolean outside,leave;
+  outside:=true;
+  leave:=false;
+  forever:
+    h:= p2 intersectionpoint tri;
+    t:= ypart(p2 intersectiontimes tri);
+    ray:=angleat 1 of p2;
+    normal:=(angleat t of tri)-90;
+    if outside:normal:=normal+180;fi
+%    draw h--(dir(normal)*1u shifted h) dashed evenly;
+    if ray*normal>0:
+      a1:=ray-normal;
+    elseif ray>normal:
+      a1:=-360+abs(ray)+abs(normal);
+    else:
+      a1:=360-abs(ray)-abs(normal);
+    fi
+    show "alpha:";
+    show a1;
+    refi:= if outside :sind(a1)*n1/n2;else:sind(a1)*n2/n1;fi
+  if (refi > 1) or (refi < 0) : %physics says -1, 0 is pretty;
+    show "reflection";
+    p2 := h--(((dir(normal-a1))*3u) shifted h);
+  else:
+    show "refreaction";
+    p2 := h--(dir(normal + 180 + asin(refi))*3u shifted h);
+    if outside=false:leave:=true;draw p2 cutafter bb;fi
+  fi
+  p2 := (subpath(epsilon, 1) of p2);
+  draw (p2 cutafter tri) cutafter bb;
+  p2 := reverse(p2);
+  outside:=false;
+  exitif(leave);
+endfor;
+
+  endfig;
+end
+#+END_SRC

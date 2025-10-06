@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- Created by MetaPost 2.00 on 2019.07.09:2134 -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="193.243423" height="94.482941" viewBox="0 0 193.243423 94.482941">
+<!-- Original BoundingBox: -0.250000 -9.918503 192.993423 84.564438 -->
+  <g transform="translate(137.645203 24.763947)" style="fill: rgb(0.000000%,0.000000%,0.000000%);">
+    <text font-size="9.962646">f(a)+f(b) / 2</text>
+  </g>
+  <path d="M134.645203 22.273285l0 0" style="stroke:rgb(0.000000%,0.000000%,0.000000%); stroke-width: 3.000000;stroke-linecap: round;stroke-linejoin: round;stroke-miterlimit: 10.000000;fill: none;"></path>
+  <path d="M7.087051 84.000000L7.087051 22.273285L134.645203 22.273285L134.645203 84.000000Z" style="stroke:rgb(0.000000%,0.000000%,0.000000%); stroke-width: 0.500000;stroke-linecap: round;stroke-linejoin: round;stroke-miterlimit: 10.000000;fill: none;"></path>
+  <path d="M0.000000 84.000000L141.732254 84.000000" style="stroke:rgb(0.000000%,0.000000%,0.000000%); stroke-width: 0.500000;stroke-linecap: round;stroke-linejoin: round;stroke-miterlimit: 10.000000;fill: none;"></path>
+  <path d="M138.035889 85.531128L141.732254 84.000000L138.035889 82.468872Z" style="stroke:rgb(0.000000%,0.000000%,0.000000%); stroke-width: 0.500000;fill: rgb(0.000000%,0.000000%,0.000000%);"></path>
+  <path d="M0.000000 13.133865C3.222366 27.340408,7.973740 41.157654,14.174088 54.341248C17.344559 61.082260,21.313034 67.931412,28.346024 70.286560C33.026016 71.852325,38.084488 70.972122,42.520111 68.792160C48.160339 66.019623,52.541885 61.385040,56.692032 56.679077C61.568848 51.151321,66.240189 45.448380,70.866135 39.708664C75.505035 33.953827,80.102859 28.157883,85.040222 22.656082C89.391495 17.807388,94.008774 13.187943,99.212143 9.264862C103.474747 6.053314,108.150436 3.313217,113.386230 2.249191C118.111649 1.288971,122.994949 1.762589,127.558167 3.313217C133.107559 5.196899,138.018967 8.600937,141.732254 13.133865" style="stroke:rgb(0.000000%,0.000000%,0.000000%); stroke-width: 0.500000;stroke-linecap: round;stroke-linejoin: round;stroke-miterlimit: 10.000000;fill: none;"></path>
+  <g transform="translate(4.596375 91.289474)" style="fill: rgb(0.000000%,0.000000%,0.000000%);">
+    <text font-size="9.962646">a</text>
+  </g>
+  <g transform="translate(131.877792 93.918503)" style="fill: rgb(0.000000%,0.000000%,0.000000%);">
+    <text font-size="9.962646">b</text>
+  </g>
+</svg>

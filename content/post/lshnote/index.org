@@ -1,0 +1,9 @@
+---
+title: "Lecture note on Locality Sensitive Hashing and MinHash"
+date: 2019-08-06
+draft: false
+mathjax: true
+---
+
+A lecture note with references on [[note.pdf][Locality sensitive hashing and MinHash]].
+The lecture was given as part of the Algorithm Design Workshop class at ITU, 2018.

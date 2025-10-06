@@ -1,0 +1,24 @@
+---
+title: "Area of annulus from single number"
+date: 2019-08-03
+draft: false
+---
+
+An annulus is a geometric object made up of two circles like this:
+
+{{< figure src="annulus_0.svg" width="400px" >}}
+
+The area of the annulus is clearly  {{<katex inline >}}\pi R^2 - \pi  r^2=\pi(R^2-r^2){{< /katex >}}.
+At first glance we might think it is enough to know the difference {{<katex inline >}}R-r{{< /katex >}} to calculate the area of the annulus.
+But, since {{< katex inline >}}f(x)=x^2{{< /katex >}} is not a linear function this will not work.
+However, if we store the length of tangent of the inner circle contained in the outer circle, {{< katex inline >}}t{{< /katex >}}, instead, the area can indeed be deduced from it:
+
+{{< figure src="annulus_1.svg" width="400px" >}}
+
+Using pythagoras we can observe that 
+
+{{< figure src="annulus_2.svg" width="400px" >}}
+
+{{< katex >}}R^2=(t/2)^2+r^2\rightarrow t^2/4=R^2-r^2{{< /katex >}}
+
+and so we can calculate the area as {{<katex >}}\pi t^2/4{{< /katex >}}.

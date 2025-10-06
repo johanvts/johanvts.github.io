@@ -1,0 +1,95 @@
+---
+title: "The trapezoidal integration method"
+date: 2019-07-07T00:15:57+03:00
+draft: false
+---
+
+** Trapezoidal integration 
+
+Say we want to approximate the definite integral {{< katex inline >}}\int_a^bf(x)dx{{< /katex>}} [fn:dx] of some smooth function
+{{< katex inline >}}f: \mathbb{R}\rightarrow\mathbb{R}{{< /katex >}}. Depending on the nature of {{< katex inline >}}f{{< /katex >}} we might not be able to obtain an exact solution.
+Instead we can use numerical integration methods to approximate the value of the integral. 
+Here we will be looking at the trapezoidal method.
+
+The trapezoidal method works by building trapez-shaped panels under the function.
+With a single panel it could look like this:
+{{< figure src="trapezoid_0.svg" width="300px">}}
+
+Of course the idea here is that it is easy to calculate the area of the panel.
+We can observe [fn:1] that the area is really the same as this area:
+
+{{< figure src="trapezoid_1.svg" width="400px">}}
+
+[fn:dx] We will be integrating over {{< katex inline >}}x{{< /katex >}} in the rest of the text so the {{< katex inline >}}dx{{< /katex >}} will be omitted.
+[fn:1] {{< katex inline >}}f(a)(b-a)+(f(b)-f(a))(b-a)/2= f(b)+f(a)(b-a)/2{{< /katex >}}
+
+
+And we have our first approximation:
+
+{{< katex inline >}}\int_a^bf(x)\approx (b-a)\frac{f(b)+f(a))} 2{{< /katex >}}
+
+Now the idea is to keep increasing the number of panels until we have enough precision.
+{{< figure src="trapezoid_4.svg" width="300px">}}
+Generally we use {{< katex inline >}}n{{< /katex >}} panels of length {{< katex inline >}}h=\frac{b-a}n{{< /katex >}}. 
+Then the panels start, meet and end at {{< katex inline >}}x_j=a+j\cdot h{{< /katex >}} for {{< katex inline >}}j=0,1,\ldots,n{{< /katex >}}.
+The total area of the approximation becomes 
+
+{{< katex >}}T_n(f)=\sum_{j=0}^n \frac{h(f(x_j)+f(x_{j+1}))}2=\frac h2 \sum_{j=0}^n (f(x_j)+f(x_j+h)){{< /katex >}}
+
+Of course the more panels we add, the better our approximation becomes. At the same time we need to perform more arithmetic and, what might be worse, 
+we need to have access to more information about the function.
+The relationship between the quality of the approximation and the amount of function access (and caculation work) is captured by the /error/.
+
+** Trapezoidal error
+
+The error is defined as {{< katex inline >}}\left|\int_a^b f(x) - T_n(f)\right|{{< /katex >}} and can be bounded
+by the sum of the error in each of the intervals.
+
+The error in a single interval is
+
+{{< katex >}}\left|\int_{x_j}^{x_j+h}f(x)-\frac h2 (f(x_j)+f(x_j+h))\right|{{< /katex >}}
+
+Clearly there is always some 'maximal' point {{< katex inline >}}x_j\leq c \leq x_j+h{{< /katex >}} such that the error is upper bounded by {{< katex inline >}}h f(c){{< /katex >}}:a
+
+{{< figure src="error_1.svg" width="400px">}}
+(As a sidenote the [[https://en.wikipedia.org/wiki/Mean_value_theorem][mean value theorem]] states that there is also some $c$ where the error is $0$).
+
+But we can find a much better bound than that.
+
+Let 
+{{< katex >}}g_j(h)=\frac h2 (f(x_j)+f(x_j+h))-\int_{x_j}^{x_j+h}f(x){{< /katex >}}
+A large {{< katex inline >}}g{{< /katex >}} (negative or positive) equates to a large error, so we will seek to bound {{< katex inline >}}g{{< /katex >}} close to {{< katex inline >}}0{{< /katex >}}.
+
+We observe that:
+
+{{< katex >}}\frac \delta {\delta h}  g_j(h) = \frac 1 2 (f(x_j)+f(x_j+h)+h f'(x_j+h))-f(x_j+h){{< /katex >}}
+
+And so:
+
+{{< katex >}}g''_j(h) = \frac 1 2 h f''(x_j+h){{< /katex >}}
+
+Now choose {{< katex inline >}}c_j{{< /katex >}} such that {{< katex inline >}}f''(x_j+h)\leq f''(c_j){{< /katex >}}.
+
+It is clear from the definition of {{< katex inline >}}g_j(h){{< /katex >}} that {{< katex inline >}}g_j(0)=0{{< /katex >}} and hence
+{{< katex inline >}}g_j'(0)=0{{< /katex >}} and {{< katex inline >}}g_j''(0)=0{{< /katex >}} which we use to see:
+
+{{< katex >}}\int_0^h g''_j(x) \leq \frac 1 4 h^2 f''(c_n){{< /katex >}}
+
+and so
+
+{{< katex >}}g_j(h)=\int_0^h g'_j(x) \leq \frac 1 {12} h^3 f''(c_n){{< /katex >}}
+
+By choosing some {{< katex inline >}}c_u{{< /katex >}} such that {{< katex inline >}}\forall j . f''(c_j)\leq f''(c_u){{< /katex >}} we get an upper bound on {{< katex inline >}}g{{< /katex >}}:
+
+{{< katex >}}\sum_{i=0}^n g_i(h)\leq \frac 1 {12} h^2(b-a) f''(c_u){{< /katex >}}
+
+We can follow the same steps to get a lower bound by choosing {{< katex inline >}}c_j{{< /katex >}} values that minimize {{< katex inline >}}g''_j(h){{< /katex >}} and then choosing 
+{{< katex inline >}}c_l{{< /katex >}} such that {{< katex inline >}}\forall j . f''(c_j)\leq f''(c_u){{< /katex >}}. Combining these bounds we can get the error bound:
+
+{{< katex >}}\left|\int_a^b f(x) - T_n(f)\right|\leq  \frac 1 {12} h^2(b-a) f''(c),\text{ where } c\in[a,b]{{< /katex >}}
+
+Which is a much tighter bound on the error.
+The critical part here is the {{< katex inline >}}h^2{{< /katex >}} indicating that the error decreases quadratically as the number of panels {{< katex inline >}}n{{< /katex >}} grows.
+
+{{< katex >}}\left|\int_a^b f(x) - T_n(f)\right| = \mathcal{O}(n^{-2}){{< /katex >}}               
+

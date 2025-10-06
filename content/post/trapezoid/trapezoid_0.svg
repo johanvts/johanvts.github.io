@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- Created by MetaPost 2.00 on 2019.07.09:2134 -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="165.660126" height="94.482941" viewBox="0 0 165.660126 94.482941">
+<!-- Original BoundingBox: -11.687195 -9.918503 153.972931 84.564438 -->
+  <g transform="translate(-0.687195 39.915558)" style="fill: rgb(0.000000%,0.000000%,0.000000%);">
+    <text font-size="9.962646">f(a)</text>
+  </g>
+  <path d="M18.087051 37.424896l0 0" style="stroke:rgb(0.000000%,0.000000%,0.000000%); stroke-width: 3.000000;stroke-linecap: round;stroke-linejoin: round;stroke-miterlimit: 10.000000;fill: none;"></path>
+  <g transform="translate(148.645203 9.614502)" style="fill: rgb(0.000000%,0.000000%,0.000000%);">
+    <text font-size="9.962646">f(b)</text>
+  </g>
+  <path d="M145.645203 7.123840l0 0" style="stroke:rgb(0.000000%,0.000000%,0.000000%); stroke-width: 3.000000;stroke-linecap: round;stroke-linejoin: round;stroke-miterlimit: 10.000000;fill: none;"></path>
+  <path d="M18.087051 84.000000L18.087051 37.424896L145.645203 7.123840L145.645203 84.000000Z" style="stroke:rgb(0.000000%,0.000000%,0.000000%); stroke-width: 0.500000;stroke-linecap: round;stroke-linejoin: round;stroke-miterlimit: 10.000000;fill: none;"></path>
+  <path d="M11.000000 84.000000L152.732254 84.000000" style="stroke:rgb(0.000000%,0.000000%,0.000000%); stroke-width: 0.500000;stroke-linecap: round;stroke-linejoin: round;stroke-miterlimit: 10.000000;fill: none;"></path>
+  <path d="M149.035889 85.531128L152.732254 84.000000L149.035889 82.468872Z" style="stroke:rgb(0.000000%,0.000000%,0.000000%); stroke-width: 0.500000;fill: rgb(0.000000%,0.000000%,0.000000%);"></path>
+  <path d="M11.000000 13.133865C14.222366 27.340408,18.973740 41.157654,25.174088 54.341248C28.344559 61.082260,32.313034 67.931412,39.346024 70.286560C44.026016 71.852325,49.084488 70.972122,53.520111 68.792160C59.160339 66.019623,63.541885 61.385040,67.692032 56.679077C72.568848 51.151321,77.240189 45.448380,81.866135 39.708664C86.505035 33.953827,91.102859 28.157883,96.040222 22.656082C100.391495 17.807388,105.008774 13.187943,110.212143 9.264862C114.474747 6.053314,119.150436 3.313217,124.386230 2.249191C129.111649 1.288971,133.994949 1.762589,138.558167 3.313217C144.107559 5.196899,149.018967 8.600937,152.732254 13.133865" style="stroke:rgb(0.000000%,0.000000%,0.000000%); stroke-width: 0.500000;stroke-linecap: round;stroke-linejoin: round;stroke-miterlimit: 10.000000;fill: none;"></path>
+  <g transform="translate(15.596375 91.289474)" style="fill: rgb(0.000000%,0.000000%,0.000000%);">
+    <text font-size="9.962646">a</text>
+  </g>
+  <g transform="translate(142.877792 93.918503)" style="fill: rgb(0.000000%,0.000000%,0.000000%);">
+    <text font-size="9.962646">b</text>
+  </g>
+</svg>

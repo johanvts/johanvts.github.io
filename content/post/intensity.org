@@ -1,0 +1,75 @@
+---
+title: "Intensity"
+date: 2020-09-08T23:54:00+02:00
+draft: false
+mathjax: true
+comments: true
+---
+
+Intensities are extremely useful in the insurance industry.
+In this post I will introduce intensities in the setting of pricing out a simple life insurance.
+
+* Life insurance
+Take the most simple life insurance: We have to pay $1$ to the customer
+if he/she dies before the age of $n$ years old.
+
+When tasked with coming up with a price for this insurance, we
+want to know how likely the customer is to die before reaching the age of $n$ years.
+When we know that, and a few other things like how much interest we can accumulate in the time span and our expenses etc. we are ready to price the insurance. 
+
+We hopefully have access to some statistics
+that will tell us at what age people normally die, allowing us to figure out a density function for the distribution of life lengths of new-borns.
+Lets call it $f(t)$. Let $X$ be the time of death. 
+
+$$ Pr[X\leq n] = \int_0^n f(t) dt $$
+
+This is all well and good, but often the customer will not be $0$ years old when 
+taking up the insurance, and as such should expect a lower price since he/she can promise not to die
+before xers current age, call it $a$. So really we then want to know:
+
+$$ Pr[X\leq n | X>a] =\frac {Pr[a < X\leq n]}{Pr[X>a]} = {\int_a^n f(t) dt}/{\int_0^a 1 - f(t) dt} $$
+
+This is not too bad, but it will be a lot cleaner when using intensities.
+
+* Cumulative functions
+
+To avoid messing with too many integrals lets define $F(t)=\Pr[X\leq t]$ and $\bar F(t)=\Pr[X>t]=1-F(t)$.
+Actuarians call these the *mortality* and *survival*  functions.
+We can restate the probability above as
+
+$$ \Pr[X\leq n | X>a]=\int_a^n \bar F(t|X>a) f(t|X>t)dt=\frac{\bar{F}(a+t)}{\bar F(a)}\frac{f(t)}{\bar(F)(t)}$$
+
+* Intensities
+
+Lets start with defining the intensity $\mu(t)$:
+
+$$ \mu(t)=\frac{f(t)}{\bar F(t)}$$
+
+This definition implies that $\mu(t)=\frac{-\frac d{dt}\bar F(t)}{\bar F(t)}=\frac d{dt} -\ln(\bar F(t))$ and so:
+
+$$ \bar F (t) = e^{-\int_0^t \mu(\tau) d\tau} $$
+
+So our expression reduces to
+
+$$\Pr[X\leq n | X>a]=\int_a^n e^{-\int_a^{a+t}\mu(\tau) d\tau}\mu(t) dt $$ 
+
+If we redefine $n$ so instead of saying we want an insurance until age $n$, we say that we want $n$ years of insurance it becomes even simpler:
+
+$$\Pr[X\leq a+n | X>a]=\int_0^n e^{-\int_0^t\mu(a+\tau) d\tau}\mu(t) dt $$
+
+* Why does  it work?
+
+What we need to figure out when selling insurances to a person of $a>0$ years of age really is a new density function, for the distribution of remaining life length of a $a$-year old.
+
+$f(t|a) = \frac {f(a+t)}{\bar F(a)}$.
+
+The probabiliy of living $t$ years after reaching age $a$ should be the same as a newborn living $a+t$ years, conditioned on him/her surviving $a$ years.
+However conditioning $\mu(t)$ is a lot simpler, consider first what happens to the *survival function*:
+
+$$\bar F(t| a) = \frac {\bar F(a+t)} {\bar F(a)}$$
+
+Plug these in to our definition of $\mu$ and we see that 
+
+$$\mu(t|a)=\frac {f(a+t)} {\bar F(a+t)}=\mu(a+t)$$ 
+
+Which is why intensities are so handy.

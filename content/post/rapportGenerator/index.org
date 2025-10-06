@@ -1,0 +1,75 @@
+---
+title: "Stochastic Report Generator"
+date: 2024-10-13T00:18:57+03:00
+draft: false
+comments: true
+---
+Forget about LLMs or even Markov Chains, sometimes correct grammar is all you need for perfectly correct gibberish: I'm happy to annnounce my translation of the [[https://github.com/johanvts/rapportGenerator][stochastic report generator]](stokastiske rapportgenerator).
+
+The story of the generator goes back to 1996 where it was released by [[https://www.itu.dk/people/sestoft/][Peter Sestoft]], now head of the ITU Computer Science Department.
+There is a good write up (in danish) about it [[https://aktuelnaturvidenskab.dk/fileadmin/Aktuel_Naturvidenskab/nr-3/AN3-2014bagside.pdf][here]], but the gist of is that he was tired of the then trend in the education sector of creating "virtual centers".
+He had, while in high school, written some software for producing grammatically correct danish nonsense, and now extended this into a web-available generator of proposals of new "virtual centers".
+
+I first encountered it in about 2012 while studying at ITU and thought it was hilarious, but I was also fascinated with how a program like that would work. It was quiet different from the kinds of program I had previously been exposed to. So at some point I decided to try and read the source code and port the program from MoscowML to F#, which I was learning at the time. I made some progress, but eventually hit a wall and gave up.
+
+Recently however, the generator went offline and I decided it was time to revisit the project, so here we are.
+There are still some bugs and missing features, but the core is there, ported to F# and [[https://rapportrunner.azurewebsites.net/api/bestilrapport][hosted online as an Azure Function]].
+
+* What did I learn?
+
+The basic type it works on is ~ordsek~ (word sequence)
+One interesting aspect of the program is that it makes extensive use of custom operators.
+
+~&&~ Is used as an infix operator to concatenate two word sequences.
+~&&&~ Is also an infix operator, but this one evaluates two functions and concatenates the results.
+
+Because F# already uses ~&&~ for boolean AND. I translated these as ~&&&~ and ~@@@~ respectively.
+It also uses a few custom operators for random choices. I really like the ~>>>~ operator:
+
+#+begin_src
+  0.25 >>> something
+#+end_src
+
+Lets you do something, but only 25% of the time.
+
+And also ~||~ which is an infix operator that lets you pick one of two options, so you can write:
+
+#+begin_src 
+val text =
+    intro
+    &&& discussion
+    &&& (0.25 >>> (figureA || figure B))
+    &&& conclusion
+#+end_src
+
+Notice that ~intro~ etc. here are function calls and not previously evaluated. Neat.
+
+* Saxo Grammaticus
+
+The most important element is of course how to handle the correct construction of sentences.
+We have already seen the structure of a text in sections.
+Each section, intro, consists of a set of sentences.
+Theses in turn are picked from a small set of options, like this one:
+
+#+begin_src
+let ledsaetning = nominal @@@ adverbial @@@ verbPraesIndAkt @@@ nominal
+#+end_src
+
+The first step here is to pick a noun (nominal).
+The avialable nouns are hardcoded into the sourcecode like this:
+#+begin_src
+ RegS (Fk,  t, "prototype", "-n", "-r", "-ne", [|""; "software"|]);
+ RegS (Itk, t, "system", "-et", "-er", "-ne", 
+       [|""; "edb-"; "informations"; "IT-"; "kommunikations"|]);
+#+end_src
+This includes enough information to pick a random form of the noun, including a random prefix, like "IT-Systemet".
+Then we pick a random adverb, again from a hardcoded list, like ""i ringe grad"
+Then, I guess, a verb in present indicative active form, from another list, like "komplicerer".
+And finaly another nominal, say "prototypen".
+
+This type of sentence is called after a conjunction, like "da".
+
+We get: "Da IT-systemet i ringe grad komplicerer prototypen."
+loosely translated: "Since the IT-System almost does not complicate the prototype."
+
+Tada!

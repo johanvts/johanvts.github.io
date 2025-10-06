@@ -1,0 +1,37 @@
+%!PS
+%%BoundingBox: -74 -58 82 58 
+%%HiResBoundingBox: -73.89644 -57.68916 81.94286 57.68916 
+%%Creator: MetaPost 2.00
+%%CreationDate: 2020.04.09:2137
+%%Pages: 1
+%*Font: cmmi10 9.96265 9.96265 0b:c
+%%BeginProlog
+%%EndProlog
+%%Page: 1 1
+ 0 0 0 setrgbcolor 1.99252 0 dtransform exch truncate exch idtransform pop setlinewidth [] 0 setdash
+ 1 setlinecap 1 setlinejoin 10 setmiterlimit
+newpath 0 56.6929 moveto
+0 -56.6929 lineto stroke
+ 0 0.5 dtransform truncate idtransform setlinewidth pop [3 3 ] 0 setdash
+newpath -56.6929 0 moveto
+56.6929 0 lineto stroke
+ [] 0 setdash
+newpath -24.54854 -14.1729 moveto
+-27.01518 -9.90057 -28.34645 -5.0191 -28.34645 0 curveto stroke
+-37.22101 -10.12433 moveto
+(\013) cmmi10 9.96265 fshow
+newpath 27.23087 7.8738 moveto
+27.96455 5.33698 28.34645 2.68823 28.34645 0 curveto stroke
+30.93555 2.10237 moveto
+(\014) cmmi10 9.96265 fshow
+newpath 0 0 moveto
+-73.64644 -42.51968 lineto stroke
+newpath 0 0 moveto
+81.69286 23.62146 lineto stroke
+newpath 78.5676 21.12413 moveto
+81.69286 23.62146 lineto
+77.7171 24.06554 lineto
+ closepath
+gsave fill grestore stroke
+showpage
+%%EOF

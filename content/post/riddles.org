@@ -1,0 +1,69 @@
+---
+title: "Riddles"
+date: 2020-09-11T16:54:00+02:00
+draft: false
+mathjax: true
+comments: true
+---
+* Riddles
+Here are some riddles, I didn't come up with them but I don't know the original authors.
+Let me know if you find any copyright infringing content on this page and I will remove it.
+I won't post the solutions here to avoid spoilers, but I will be happy to share them via. email or otherwise.
+I did post some hints so don't skim the page.
+If you have more riddles I would also love to hear them in the comments or via. email etc. Thank you.
+
+** 100 Prisoners
+*** With hats
+100 prisoners are told that the next day they will be lined up in the prison yard.
+Each prisoner will wear a white or black hat, and all will be facing east so that they can see the hats of the
+prisoners in front of them.
+Starting from behind an executioner will ask them one at a time to guess their hat color.
+If a prisoner guesses correctly he is spared.
+A wrong guess will lead to immidiate execution of the prisoner.
+Any other communication or moving around will result in the execution of all 100 prisoners.
+
+The prisoners are free to coordinate an optimal strategy beforehand.
+What should they do?
+
+**** Hints and clarification
+The optimal strategy saves at least 99 prisoners.
+
+*** In numbered cells
+100 prisoners are staying in cells numbered 1-100.
+They are told that the next day they will in turn be called to the wardens office.
+In the office will be 100 numbered boxes, in each box one of the cell numbers with no duplicates.
+Each prisoner will have a chance to look in 50 of the boxes. If he can find his own cell number the boxes will be
+put back as they where and the next prisoner will be allowed his turn. If all prisoners succede the prison closes
+and they are released. If a single prisoner fails they all remain imprisoned.
+
+The prisoners cannot communicate during the next day, but can coordinate an optimal strategy beforehand.
+What should they do?
+
+**** Hints and clarification
+- The best strategy yields much better than $2^{-100}$ probability of release.
+- There is a strategy that gives 50% chance of the prisoners being released.
+
+** 2 shoelaces
+You have two shoelaces that have been in dipped in wax, a scissor and a lighter.
+Each shoelace takes one hour to burn, but the wax is not uniformly distributed and
+some parts of the shoelaces burn faster than other.
+
+Measure 15 minutes, i.e. You have to be able to say "start" and "stop" with 15 minutes between the two.
+
+*** Hints and clarifications
+You can light a shoelace more than one place.
+
+** The doctor
+A father and son are driving along the highway. There is an accident and the son is hurt. 
+He is rushed to the hospital, but when he gets to the operating room the doctor exclaims "I can't do it, that's my son!".
+How is it possible?
+
+** Rush to the gate
+You are at the airport, late for the plane and rushing to get to the gate as quickly as possible.
+You need to tie your shoelace before getting there.
+Every now and then there is a rolling pavement. Should you tie it on the rolling pavement, off the rolling pavement or is it irrelevant when you do it. 
+You run at a constant speed whenever you are not tying the lace, you will not be faster after tying it.
+
+*** Hints and clarifications
+- You can ignore the time for stopping and starting, getting on and off pavements etc.
+- Imagine there where two of you doing different things.

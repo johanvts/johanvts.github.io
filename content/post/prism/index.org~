@@ -1,0 +1,17 @@
+---
+title: "Snell's law in MetaPost"
+date: 2019-07-07T00:15:57+03:00
+draft: true
+---
+
+[[https://en.wikipedia.org/wiki/Snell%27s_law][Snell's]] law tells us how a monochromatic light travels through a boundary betwwen
+two diffenrent matrials.
+
+$$n_1\sin\alpha=n_2\sin\beta$$
+
+{{< figure src="trapezoid_1.svg" width="400px">}}
+
+
+
+
+This  makes for a fun MetaPost drawing

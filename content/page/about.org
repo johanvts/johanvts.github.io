@@ -1,0 +1,12 @@
+---
+title: About
+description: How is it we are here?
+menu: main
+---
+
+{{< figure src="/images/johan.jpg" width="200px" >}}
+
+Welcome to theses pages. I am a Copenhagen based software developer with a background in theoretical computer science.
+Here you can find my publications and the occasional blog post.
+
+Thanks for stopping by.

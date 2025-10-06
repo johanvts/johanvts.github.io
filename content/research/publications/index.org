@@ -1,0 +1,18 @@
+#+TITLE: "Publications"
+#+DATE: 2018-11-01T00:00:00+01:00
+#+DRAFT: false
+
+* [[https://diku-dk.github.io/edbticdt2020/?contents=accepted-papers-icdt.html][The space complexity of inner product estimation]]
+Rasmus Pagh and Johan Sivertsen, ICDT 2020, [[https://arxiv.org/abs/1909.10766][Preprint]]
+
+* [[https://arxiv.org/abs/1707.06814][Scalable and Robust Set Similarity Join]]
+Tobias Christiani, Rasmus Pagh and Johan Sivertsen, ICDE 2018, [[setsimposter.pdf][Poster]]
+
+* [[https://arxiv.org/abs/1707.06867][Fast Nearest Neighbor Preserving Embeddings]]
+Johan Sivertsen, arXiv
+
+* [[MembershipNoFalseNegs.pdf][Distance Sensitive Bloom Filters Without False Negatives]]
+Mayank Goswami, Rasmus Pagh, Francesco Silvestri and Johan Sivertsen, SODA 2017
+
+* [[http://link.springer.com/chapter/10.1007/978-3-319-25087-8_1][Approximate Furthest Neighbor in High Dimensions]]
+Rasmus Pagh, Francesco Silvestri, Johan Sivertsen, and Matthew Skala, SISAP 2015

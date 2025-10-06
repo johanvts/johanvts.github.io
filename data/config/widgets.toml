@@ -1,0 +1,29 @@
+[about]
+title = ""
+description = ""
+logo = "/images/enclosing.png"
+
+[breadcrumbs]
+separator = "/"
+excludeParents = ["page"]
+
+[recent_posts]
+title = ""
+length = 5
+excludeTypes = ["page"]
+
+[search]
+title = "Search"
+
+[sidebar_menu]
+title = ""
+mirror = "main"
+
+[social_menu]
+title = ""
+platforms = ["email","linkedin","google_scholar","github"]
+
+[taxonomy_cloud]
+title = ""
+taxonomy = "tags"
+shuffle = true

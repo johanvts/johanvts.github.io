@@ -1,0 +1,22 @@
+---
+title: "Einstein and Truchet"
+date: 2023-04-19T00:18:57+03:00
+draft: false
+comments: true
+---
+As you probably know, we now have an aperiodic monotile!
+I was particularly intrigued by an example patch given towards the end of the great introduction found on [[https://aperiodical.com/2023/03/an-aperiodic-monotile-exists/][aperiodcal.com]] .
+Here a [[https://mathstodon.xyz/@Danpiker/110062396666001681][post]] is shared where [[http://kangaroo3d.com/][Dan Piker]] overlays the new tile with a [[https://en.wikipedia.org/wiki/Truchet_tiles][Truchet pattern]].
+{{< figure src="Truchet.png" width="600px" caption="_Progressively larger patches of the Truchet-style pattern._">}}
+I wanted to see a larger patch of that pattern, and I really wanted to see
+it overlaid on the "fylfots" described in the [[https://arxiv.org/abs/2303.10798][paper]]. These seem to define a very pretty structure of interlocking trees on their own, and I wanted to see how it interacts with the Truchet pattern.
+{{< figure src="fig212fylfots.PNG">}}
+
+So, I have been expanding the [[https://cs.uwaterloo.ca/~csk/hat/app.html][interactive patch constructor]] found on the paper [[https://cs.uwaterloo.ca/~csk/hat/][website]] to support drawing the truchet pattern. You can play with the
+expanded tool [[https://www.johansivertsen.com/customhatviz/app.html][here]]. I will be submitting a pull request to the original tool, so hopefully it will also soon be available there.
+
+{{< figure src="output (2).png" width="800px" link="./output%20(2).png">}}
+
+If you want to expand further yourself, you can find the source on [[https://github.com/johanvts/customhatviz/tree/truchet][github]]. I put some effort into improving the documentation and comments of the original repo while reading along in the paper.
+
+{{< figure src="output (1).png" width="800px" link="./output%20(1).png">}}
