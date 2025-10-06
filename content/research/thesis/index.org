@@ -1,4 +1,4 @@
-#+TITLE: "Thesis"
+#+TITLE: Thesis
 #+DATE: 2018-11-01T00:00:00+01:00
 #+DRAFT: false
 
