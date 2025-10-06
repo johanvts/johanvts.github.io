@@ -6,3 +6,7 @@ theme = 'minimo'
 [caches]
   [caches.images]
     dir = ':cacheDir/images'
+
+[services]
+  [services.disqus]
+    shortname = 'johansivertsen'
