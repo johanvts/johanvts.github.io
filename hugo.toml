@@ -10,3 +10,12 @@ theme = 'minimo'
 [services]
   [services.disqus]
     shortname = 'johansivertsen'
+
+[params.sidebar]
+enable = true
+
+[params.widgets]
+header = ["breadcrumbs"]
+homepage = ["recent_posts"]
+sidebar = ["about", "sidebar_menu"]
+footer = ["social_menu"]
