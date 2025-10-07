@@ -1,8 +1,6 @@
----
-title: "Area of annulus from single number"
-date: 2019-08-03
-draft: false
----
+#+title: Area of annulus from single number
+#+date: 2019-08-03
+#+draft: false
 
 An annulus is a geometric object made up of two circles like this:
 
