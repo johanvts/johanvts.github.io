@@ -1,0 +1,36 @@
+#+TITLE: Configuring hunspell on Windows
+#+DATE: 2025-10-07
+#+DRAFT: false
+
+* Setting up Hunspell on Windows
+Having done this a few times now and stumbling around I think I finally found something that works from me.
+First off we must install hunspell on the machine and expose it via ~exec-path~:
+#+begin_src powershell
+  winget install hunspell
+#+end_src
+After restarting powershell this is handy for getting the exec path:
+#+begin_src powershell
+Get-Command hunspell | select -ExpandProperty Source | Split-Path | clip
+#+end_src
+Insert into ~exec-path~ and verify that it works via ~(executable-find "hunspell")~
+
+* Getting dictionaries
+We can find out here hunspell looks for dictionaries via:
+#+begin_src powershell
+> hunspell -D
+  SEARCH PATH:
+.;;C:\Hunspell\;%USERPROFILE%\Application Data\OpenOffice.org 2\user\wordbook;C:\Program files\OpenOffice.org 2.4\share\dict\ooo\;C:\Program files\OpenOffice.org 2.3\share\dict\ooo\;C:\Program files\OpenOffice.org 2.2\share\dict\ooo\;C:\Program files\OpenOffice.org 2.1\share\dict\ooo\;C:\Program files\OpenOffice.org 2.0\share\dict\ooo\
+AVAILABLE DICTIONARIES (path is not mandatory for -d option):
+#+end_src
+
+Just pick one of these search paths and place dictionaries there.
+They can be downloaded from [[https://github.com/elastic/hunspell/tree/master/dicts][elastic]], you need the ~.add~ and ~.dic~ files for each.
+
+* The trick
+Now in emacs issue ~ispell-change-dictionary~ to select the language you want.
+This is where I normally get stuck teasing out the right names of dictionaries.
+The trick is that everything will work out of the box,if you rename you dictionary files to whatever is in ~ispell-dictionary-alist~.
+For example, when i issue ~ispell-change-dictionary~, I can choose between ~american~, ~english~ or ~dansk~, but the dictionaries I downloaded are called ~en_US~, ~en_GB~ and ~da~.
+So, just rename the files ~en_US.aff -> american.aff~, ~en_US.dic -> american.dic~, ~da.aff -> dansk.aff~ etc. etc. This seems a much simpler workaround than trying to fix up the dictionaries, which is where i normally mess around for a while when trying to follow the thread on [[https://emacs.stackexchange.com/questions/14952/how-do-i-set-up-hunspell-on-a-windows-pc][emacs stackexchange]].
+
+Hope this helps.
