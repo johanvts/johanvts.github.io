@@ -1,10 +1,8 @@
-#+TITLE: Configuring hunspell on Windows
+#+TITLE: Configuring Hunspell in Emacs on Windows
 #+DATE: 2025-10-07
 #+DRAFT: false
 
-* Setting up Hunspell on Windows
-Having done this a few times now and stumbling around I think I finally found something that works from me.
-First off we must install hunspell on the machine and expose it via ~exec-path~:
+First off we must install Hunspell on the machine and expose it via ~exec-path~:
 #+begin_src powershell
   winget install hunspell
 #+end_src
@@ -26,13 +24,13 @@ AVAILABLE DICTIONARIES (path is not mandatory for -d option):
 Just pick one of these search paths and place dictionaries there.
 They can be downloaded from [[https://github.com/elastic/hunspell/tree/master/dicts][elastic]], you need the ~.add~ and ~.dic~ files for each.
 
-* The trick
+* One small trick
 Now in emacs issue ~ispell-change-dictionary~ to select the language you want.
 This is where I normally get stuck teasing out the right names of dictionaries.
-The trick is that everything will work out of the box,if you rename you dictionary files to whatever is in ~ispell-dictionary-alist~.
+The trick is that everything will work out of the box, if you rename your downloaded dictionary files to whatever is already in ~ispell-dictionary-alist~.
 
 For example, when I issue ~ispell-change-dictionary~, I can choose between ~american~, ~english~ or ~dansk~, but the dictionaries I downloaded are called ~en_US~, ~en_GB~ and ~da~.
 
-So, just rename the files ~en_US.aff -> american.aff~, ~en_US.dic -> american.dic~, ~da.aff -> dansk.aff~ etc. etc. This seems a much simpler workaround than trying to fix up the dictionaries, which is where i normally mess around for a while when trying to follow the thread on [[https://emacs.stackexchange.com/questions/14952/how-do-i-set-up-hunspell-on-a-windows-pc][emacs stackexchange]].
+So, just rename the files ~en_US.aff -> american.aff~, ~en_US.dic -> american.dic~, ~da.aff -> dansk.aff~ etc. etc. This seems a much simpler workaround than trying to fix up the elisp dictionaries, which is where i normally mess around for a while when trying to follow the thread on [[https://emacs.stackexchange.com/questions/14952/how-do-i-set-up-hunspell-on-a-windows-pc][emacs stackexchange]].
 
 Hope this helps.
