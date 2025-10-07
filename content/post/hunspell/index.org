@@ -31,6 +31,6 @@ The trick is that everything will work out of the box, if you rename your downlo
 
 For example, when I issue ~ispell-change-dictionary~, I can choose between ~american~, ~english~ or ~dansk~, but the dictionaries I downloaded are called ~en_US~, ~en_GB~ and ~da~.
 
-So, just rename the files ~en_US.aff -> american.aff~, ~en_US.dic -> american.dic~, ~da.aff -> dansk.aff~ etc. etc. This seems a much simpler workaround than trying to fix up the elisp dictionaries, which is where i normally mess around for a while when trying to follow the thread on [[https://emacs.stackexchange.com/questions/14952/how-do-i-set-up-hunspell-on-a-windows-pc][emacs stackexchange]].
+So, just rename the files ~en_US.aff -> american.aff~, ~en_US.dic -> american.dic~, ~da.aff -> dansk.aff~ etc. etc. This seems a much simpler workaround than trying to fix up the elisp dictionaries, which is where I normally mess around for a while when trying to follow the thread on [[https://emacs.stackexchange.com/questions/14952/how-do-i-set-up-hunspell-on-a-windows-pc][emacs stackexchange]].
 
 Hope this helps.
