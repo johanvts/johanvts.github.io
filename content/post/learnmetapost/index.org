@@ -24,7 +24,7 @@ f = 4*x
 
   Unfortunately the novel style can also make it a little difficult to get started.
   MetaPost has a great [[https://www.tug.org/docs/metapost/mpman.pdf][manual]], but not so many tutorials.
-  So I wrote a small course that walks the complete novice through all the steps from installation to the successfull
+  So I wrote a small course that walks the complete novice through all the steps from installation to the successful
   production of images like the one below. Check it out at [[http://www.learnmetapost.com][LearnMetaPost.com]].
 
   {{< figure src="encode.png" width="400px">}}
