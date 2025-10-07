@@ -13,7 +13,7 @@ Get-Command hunspell | select -ExpandProperty Source | Split-Path | clip
 Insert into ~exec-path~ and verify that it works via ~(executable-find "hunspell")~
 
 * Getting dictionaries
-We can find out here hunspell looks for dictionaries via:
+We can find out where hunspell looks for dictionaries via:
 #+begin_src powershell
 > hunspell -D
   SEARCH PATH:
