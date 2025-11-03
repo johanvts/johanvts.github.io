@@ -1,0 +1,35 @@
+---
+title: "Treesitter Emacs On Windows"
+date: 2025-11-04T01:43:26+01:00
+draft: false
+comments: true
+---
+* Configuring Treesitter with precomiled grammars on windows
+
+If you are using treesitter on windows, it can be a bit of work to configure everything in order to compile grammars on your own.
+Using pre-compiled grammars is possible, but it's not very obvious how, so here is my small guide.
+
+** Download precompiled grammars
+First step is to find some source of precompiled grammars.
+[[https://github.com/emacs-tree-sitter/tree-sitter-langs/releases][tree-sitter-langs]] is the best source I have found. I placed mine in ~P:\Languages~.
+
+** Rename files
+Once you have the dlls you have to re-name them, by prefixing ~libtree-sitter-~. I used powershell:
+#+begin_src powershell
+  dir | Rename-Item -NewName {"libtree-sitter-" + $_.Name}
+#+end_src
+
+** Point Treesit-emacs to the files
+Finally we need to tell treesitter where to find them:
+#+begin_src elisp
+(use-package treesit
+  :config
+  (add-to-list 'treesit-extra-load-path "P:/Languages"))
+#+end_src
+
+To verify that it works you can use ex:
+#+begin_src elisp
+  (treesit-language-available-p 'json)
+#+end_src
+It should return ~t~ if it finds the json grammar.
+
