@@ -1,9 +1,7 @@
----
-title: "Treesitter Emacs On Windows"
-date: 2025-11-04T01:43:26+01:00
-draft: false
-comments: true
----
+#+TITLE: Treesitter Emacs On Windows
+#+DATE: 2025-11-04
+#+DRAFT: false
+
 * Configuring Treesitter with precomiled grammars on windows
 
 If you are using treesitter on windows, it can be a bit of work to configure everything in order to compile grammars on your own.
