@@ -1,0 +1,183 @@
+#+TITLE: Pratt Parsing
+#+DATE: 2025-12-11
+#+DRAFT: true
+
+* Pratt Parsing
+I recently stumbled into a Pratt parsing based parser at work. A helpful collegue send me this article: [[https://matklad.github.io/2020/04/13/simple-but-powerful-pratt-parsing.html][Simple but Powerful Pratt Parsing]], which does a great job at explaining things, but it still had me staring at the minimal implementation for a long time before I got it (with said collegues help, thank you Rasmus). So this post is for you if you don't have Rasmus handy. If you just want a general introduction to Pratt parsers read the above and come back if you get stuck.
+
+I think there where two things that made it hard for me to parse the code, other than it just being rather complex.
+First we have two recursive methods calling each other. This is a bit hidden in (link) because a loop is used in the outer method rather than an explicitly named inner recursive function, and then the loop breaks and you have to find the return value outside the loop.
+Secondly a global state is hidden inside the lexer making it kind of hard to track the remaining tokens.
+
+So here is my F# version, purely functional of course (what I mean by that is that there are no side effects, functions only know their input and only affect their output).
+
+#+caption: Parser only, the full code is included at the bottom of the page.
+#+begin_src fsharp
+let rec ParseFromLiteral tokens minBindingPower =
+    let rec ParseFromOperator lhs tokens =
+        match tokens with
+            | [] -> lhs, []
+            | Operator op::_ when op.LeftBindingPower < minBindingPower ->
+                lhs, tokens
+            | Operator op::rest ->
+                let rhs, rhsRest = ParseFromLiteral rest op.RightBindingPower
+                ParseFromOperator (Expression(op, lhs, rhs))  rhsRest
+            | _ -> failwith $"Expected operator in {tokens}."
+    match tokens with
+        | [Token.Literal c] -> Literal c, []
+        | Token.Literal c::tail -> ParseFromOperator (Literal c) tail
+        | _ -> failwith "Expected literal in {tokens}."                  
+#+end_src
+
+I think that the focus on prefix vs. infix was a bit confusing for me. If ex. I only have number literals and the ~Add~ and ~subtrackt~ operators in my language, it does not really matter that add and subtract are infix operators. I can apply them as soon as i have parsed the next literal. with a single level of recursion.
+
+
+
+Let parse expr tokens =
+
+   Let lhs = tokens.head
+
+   Let op = tokens.skip1.head
+
+   Let expr = (op, lhs, parse tokens.skip2
+
+
+
+This only breaks when i start to have different bindingpower between operators, once i introduce multiply or divide operator I cannot apply my operators immediately, i have to discover if the next token is followed by an operator of greater power, and then apply that first. So infix is really just a pre-requisite, it’s operators with unequal bindingpower that really causes the headache.
+
+
+
+So lets look at the first thing that breaks the parser above: A*B+C would be parsed as (* A (+ (B C)) but should of course be (+ (C (* A B)). Lets track how the Pratt parser gets it right:
+
+
+
+Parse ,(* A B… ,
+Recurse down to finish the expression Here there are two ways of doing it: we can recursively form the next expression inside the outer expression. Equivalent to the simple recursive decent parser above. Or, the other option, to discover that the next operator + is weaker binding than * and instead finish the expression by using what has been parsed so far as the inner left hand side of a new outer expression (formed by the outmost parser)
+
+
+More generally it helped me to think in terms of building the tree representation of the s-expression. In the simple recursive decent parser my only choice is to build a very unbalanced tree, every operator parsed grows the right hand side of the tree one level deeper. The pratt parser gains the ability to promote a new operator to the top of the tree, appointing what we have seen so far to the lhs of the new root and continuing construction of the rhs. 
+
+
+
+```picture of rhs tree 
+
+flowchart TD
+
+    OP((+)) --> A((A))
+
+    OP --> OP2((+))
+
+    OP2 --> B((B))
+
+    OP2 --> C((C)) ``
+
+ 
+
+In the Pratt parser we can also keep recursing, i.e. growing down the right hand side, but once we pop back out is the promotion moment,  at that point a finished expression is formed and the next operator is promoted to apply with that expression on the lhs, rather than inside its rhs as would normally be the case. It becomes a parent rather than a child in the tree view.
+
+
+
+``picture of two trees, where the right is the left wit a promoted child
+
+Left
+
+
+
+flowchart TD
+
+    OP((*)) --> A((A))
+
+    OP --> OP2((+))
+
+    OP2 --> B((B))
+
+    OP2 --> C((C))
+
+
+
+Right
+
+
+
+flowchart TD
+
+    OP((+)) --> OP2((*))
+
+    OP --> A((C))
+
+    OP2 --> B((A))
+
+    OP2 --> C((B))
+
+
+
+``
+
+`` Highlight of the code point``
+
+
+
+Now this decision is made only when binding powers are at play, which means when parsing operators. I found that this split was the cleanest distinction i could make between the two recursive methods. Hence I called them ParseFromOperator and ParseFromLiteral.
+
+
+
+I can’t recall seeing other algorithms that combine two recursive methods like this, with the inner recursion calling both methods. It certainly is a challenge to wrap your head around and really a work of art. If you know of others please do let me know.
+
+#+Full code
+#+begin_src fsharp
+type Operator =
+    | Multiply
+    | Add
+    with
+        member this.BindingPower =
+            match this with
+                | Multiply -> (3,4)
+                | Add -> (1,2)
+        member this.LeftBindingPower =
+           fst this.BindingPower
+        member this.RightBindingPower =
+           snd (this.BindingPower)
+        override this.ToString() =
+            match this with
+                | Multiply -> "*"
+                | Add -> "+"
+
+type Token = Literal of char | Operator of Operator
+
+let lexer :seq<char> -> Token list =
+    Seq.filter ((<>) ' ')  >>
+    Seq.map (function
+             | '*' -> Operator(Multiply)
+             | '+' -> Operator(Add)
+             | c -> Literal(c)) >> Seq.toList
+
+type Expression =
+    | Literal of char | Expression of Operator * Expression * Expression
+    override this.ToString() =
+        match this with
+            | Literal(c) -> $"{c}"
+            | Expression(op, left, right) -> $"({op} {left}  {right})"
+
+let rec ParseFromLiteral tokens minBindingPower =
+    let rec ParseFromOperator lhs tokens =
+        match tokens with
+            | [] -> lhs, []
+            | Operator op::_ when op.LeftBindingPower < minBindingPower ->
+                lhs, tokens
+            | Operator op::rest ->
+                let rhs, rhsRest = ParseFromLiteral rest op.RightBindingPower
+                ParseFromOperator (Expression(op, lhs, rhs))  rhsRest
+            | _ -> failwith $"Expected operator in {tokens}."
+    match tokens with
+        | [Token.Literal c] -> Literal c, []
+        | Token.Literal c::tail -> ParseFromOperator (Literal c) tail
+        | _ -> failwith "Expected literal in {tokens}."                
+
+let ParseString input =
+    (fst (ParseFromLiteral (lexer input) 0)).ToString()
+
+printfn $"""ParseString "1 * 2 + 3" -> {ParseString "1 * 2 + 3"}"""
+printfn $"""ParseString "1 + 2 * 3" -> {ParseString "1 + 2 * 3"}"""
+printfn $"""ParseString "a + b * c * d + e" -> {ParseString "a + b * c * d + e"}"""
+
+#+end_src
