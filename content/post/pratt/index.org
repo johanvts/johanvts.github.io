@@ -76,6 +76,7 @@ flowchart TD
     OP2 --> B((B))
     OP2 --> C((C))
 #+end_src
+
 #+begin_src mermaid
 flowchart TD
     OP((+)) --> OP2((*))
