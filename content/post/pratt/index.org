@@ -29,9 +29,9 @@ let rec ParseFromLiteral tokens minBindingPower =
         | _ -> failwith "Expected literal in {tokens}."                  
 #+end_src
 
-A third thing I struggled with in the article, but also reading [[https://journal.stuffwithstuff.com/2011/03/19/pratt-parsers-expression-parsing-made-easy/][Bob Nystroms excellent article] was the focus on prefix vs. infix. Basically it seemed to me that it if ex. I only have number literals and the ~Add~ and ~substract~ operators in my language, it does not really matter that ~add~ and ~subtract~ are infix operators. I can apply them as soon as i have parsed the next literal. with a single level of recursion.
+A third thing I struggled with in the article, but also reading [[https://journal.stuffwithstuff.com/2011/03/19/pratt-parsers-expression-parsing-made-easy/][Bob Nystroms excellent article]] was the focus on prefix vs. infix. Basically it seemed to me that it if ex. I only have number literals and the ~Add~ and ~substract~ operators in my language, it does not really matter that ~add~ and ~subtract~ are infix operators. I can apply them as soon as i have parsed the next literal. with a single level of recursion.
 
-#+begin_src
+#+begin_src fsharp
 let parse expr tokens =
    Let lhs = tokens.head
    Let op = tokens.skip1.head
@@ -50,7 +50,7 @@ So lets look at the first thing that breaks the simple recursive parser above: ~
 More generally it helped me to think in terms of building the tree representation of the s-expression. In the simple recursive decent parser my only choice is to build a very unbalanced tree, every operator parsed grows the right hand side of the tree one level deeper. The pratt parser gains the ability to promote a new operator to the top of the tree, appointing what we have seen so far to the lhs of the new root and continuing construction of the rhs. 
 
 #+CAPTION: Right wing tree
-#+START_SRC mermaid
+#+begin_src mermaid
 flowchart TD
     OP((+)) --> A((A))
     OP --> OP2((+))
@@ -60,7 +60,7 @@ flowchart TD
 
 In the Pratt parser we can also keep recursing, i.e. growing down the right hand side, but once we pop back out is the promotion moment, at that point a finished expression is formed and the next operator is promoted to apply with that expression on the lhs, rather than inside its rhs as would normally be the case. It becomes a parent rather than a child in the tree view.
 
-#+START_SRC F#
+#+begin_src F#
 let rhs, rhsRest = ParseFromLiteral rest op.RightBindingPower
      ▲--parsed rhs, formed lhs --▼                
 ParseFromOperator (Expression(op, lhs, rhs))  rhsRest
