@@ -55,14 +55,14 @@ flowchart TD
     OP((+)) --> A((A))
     OP --> OP2((+))
     OP2 --> B((B))
-    OP2 --> C((C)) ``
+    OP2 --> C((C))
 #+END_SRC
 
 In the Pratt parser we can also keep recursing, i.e. growing down the right hand side, but once we pop back out is the promotion moment, at that point a finished expression is formed and the next operator is promoted to apply with that expression on the lhs, rather than inside its rhs as would normally be the case. It becomes a parent rather than a child in the tree view.
 
-#+begin_src F#
+#+begin_src fsharp
 let rhs, rhsRest = ParseFromLiteral rest op.RightBindingPower
-     ▲--parsed rhs, formed lhs --▼                
+//   ▲ parse rhs -> form lhs ▼                
 ParseFromOperator (Expression(op, lhs, rhs))  rhsRest
 #+END_SRC 
 
