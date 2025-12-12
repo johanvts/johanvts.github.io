@@ -69,7 +69,7 @@ ParseFromOperator (Expression(op, lhs, rhs))  rhsRest
 
 
 #+CAPTION: picture of two trees, where the right is the left wit a promoted child
-#+BEGIN_SRC Mermaid
+#+BEGIN_SRC mermaid
 flowchart TD
     OP((*)) --> A((A))
     OP --> OP2((+))
