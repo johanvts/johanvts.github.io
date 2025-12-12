@@ -1,6 +1,6 @@
 #+TITLE: Pratt Parsing
 #+DATE: 2025-12-11
-#+DRAFT: true
+#+DRAFT: false
 
 * Pratt Parsing
 I recently stumbled into a Pratt parsing based parser at work. A helpful collegue send me this article: [[https://matklad.github.io/2020/04/13/simple-but-powerful-pratt-parsing.html][Simple but Powerful Pratt Parsing]], which does a great job at explaining things, but it still had me staring at the minimal implementation for a long time before I got it (with said collegues help, thank you Rasmus). So this post is for you if you don't have Rasmus handy. If you just want a general introduction to Pratt parsers read that article instead and then come back if you get stuck.
@@ -29,7 +29,7 @@ let rec ParseFromLiteral tokens minBindingPower =
         | _ -> failwith "Expected literal in {tokens}."                  
 #+end_src
 
-A third thing i struggled with in the article was the focus on prefix vs. infix. Basically it seemed to me that it if ex. I only have number literals and the ~Add~ and ~substract~ operators in my language, it does not really matter that ~add~ and ~subtract~ are infix operators. I can apply them as soon as i have parsed the next literal. with a single level of recursion.
+A third thing I struggled with in the article, but also reading [[https://journal.stuffwithstuff.com/2011/03/19/pratt-parsers-expression-parsing-made-easy/][Bob Nystroms excellent article] was the focus on prefix vs. infix. Basically it seemed to me that it if ex. I only have number literals and the ~Add~ and ~substract~ operators in my language, it does not really matter that ~add~ and ~subtract~ are infix operators. I can apply them as soon as i have parsed the next literal. with a single level of recursion.
 
 #+begin_src
 let parse expr tokens =
@@ -56,7 +56,7 @@ flowchart TD
     OP --> OP2((+))
     OP2 --> B((B))
     OP2 --> C((C)) ``
-#+END SRC
+#+END_SRC
 
 In the Pratt parser we can also keep recursing, i.e. growing down the right hand side, but once we pop back out is the promotion moment, at that point a finished expression is formed and the next operator is promoted to apply with that expression on the lhs, rather than inside its rhs as would normally be the case. It becomes a parent rather than a child in the tree view.
 
@@ -68,53 +68,29 @@ ParseFromOperator (Expression(op, lhs, rhs))  rhsRest
 
 
 
-#+CAPTION picture of two trees, where the right is the left wit a promoted child
-
-Left
-
-
-
+#+CAPTION: picture of two trees, where the right is the left wit a promoted child
+#+BEGIN_SRC Mermaid
 flowchart TD
-
     OP((*)) --> A((A))
-
     OP --> OP2((+))
-
     OP2 --> B((B))
-
     OP2 --> C((C))
-
-
-
-Right
-
-
-
+#+end_src
+#+begin_src mermaid
 flowchart TD
-
     OP((+)) --> OP2((*))
-
     OP --> A((C))
-
     OP2 --> B((A))
-
     OP2 --> C((B))
+#+end_src
 
+Now this decision is made only when binding powers are at play, which means when parsing operators. I found that this split was the cleanest distinction i could make between the two recursive methods. Hence I called my methods ~ParseFromOperator~ and ~ParseFromLiteral~.
 
+I can’t recall seeing other algorithms that combine two recursive methods like this, with the inner recursion calling both methods. It certainly is a challenge to wrap your head around and really a work of art. If you know of others please do let me know. 
 
-``
+My full code including the lexer etc. is included here:
 
-`` Highlight of the code point``
-
-
-
-Now this decision is made only when binding powers are at play, which means when parsing operators. I found that this split was the cleanest distinction i could make between the two recursive methods. Hence I called them ParseFromOperator and ParseFromLiteral.
-
-
-
-I can’t recall seeing other algorithms that combine two recursive methods like this, with the inner recursion calling both methods. It certainly is a challenge to wrap your head around and really a work of art. If you know of others please do let me know.
-
-#+Full code
+#+caption: Full code
 #+begin_src fsharp
 type Operator =
     | Multiply
