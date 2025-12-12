@@ -33,9 +33,9 @@ A third thing I struggled with in the article, but also reading [[https://journa
 
 #+begin_src fsharp
 let parse expr tokens =
-   Let lhs = tokens.head
-   Let op = tokens.skip1.head
-   Let expr = (op, lhs, parse tokens.skip2
+   let lhs = tokens.head
+   let op = (List.skip 1 tokens).Head
+   (op, lhs, parse (List.skip 2 tokens))
 #+end_src
 
 This only breaks when I start to have different binding power between operators, once we introduce ~multiply~ or ~divide~ operators I cannot apply my operators immediately; I have to discover if the next token is followed by an operator of greater power, and then apply that first. So infix is really just a pre-requisite, it’s operators with unequal bindingpower that really causes the headache.
