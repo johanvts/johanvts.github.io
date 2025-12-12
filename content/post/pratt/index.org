@@ -3,13 +3,13 @@
 #+DRAFT: true
 
 * Pratt Parsing
-I recently stumbled into a Pratt parsing based parser at work. A helpful collegue send me this article: [[https://matklad.github.io/2020/04/13/simple-but-powerful-pratt-parsing.html][Simple but Powerful Pratt Parsing]], which does a great job at explaining things, but it still had me staring at the minimal implementation for a long time before I got it (with said collegues help, thank you Rasmus). So this post is for you if you don't have Rasmus handy. If you just want a general introduction to Pratt parsers read the above and come back if you get stuck.
+I recently stumbled into a Pratt parsing based parser at work. A helpful collegue send me this article: [[https://matklad.github.io/2020/04/13/simple-but-powerful-pratt-parsing.html][Simple but Powerful Pratt Parsing]], which does a great job at explaining things, but it still had me staring at the minimal implementation for a long time before I got it (with said collegues help, thank you Rasmus). So this post is for you if you don't have Rasmus handy. If you just want a general introduction to Pratt parsers read that article instead and then come back if you get stuck.
 
 I think there where two things that made it hard for me to parse the code, other than it just being rather complex.
-First we have two recursive methods calling each other. This is a bit hidden in (link) because a loop is used in the outer method rather than an explicitly named inner recursive function, and then the loop breaks and you have to find the return value outside the loop.
+First we have two recursive methods calling each other. This is a bit hidden in (link) because a loop is used in the outer method rather than an explicit, named, inner recursive function, and then the loop breaks and you have to find the return value outside the loop.
 Secondly a global state is hidden inside the lexer making it kind of hard to track the remaining tokens.
 
-So here is my F# version, purely functional of course (what I mean by that is that there are no side effects, functions only know their input and only affect their output).
+So here is my F# version that adresses that. It uses two named recursive functions and there is no hidden state or other side effects (the functions return a tuple : (expression, remaining tokens)).
 
 #+caption: Parser only, the full code is included at the bottom of the page.
 #+begin_src fsharp
@@ -29,55 +29,46 @@ let rec ParseFromLiteral tokens minBindingPower =
         | _ -> failwith "Expected literal in {tokens}."                  
 #+end_src
 
-I think that the focus on prefix vs. infix was a bit confusing for me. If ex. I only have number literals and the ~Add~ and ~subtrackt~ operators in my language, it does not really matter that add and subtract are infix operators. I can apply them as soon as i have parsed the next literal. with a single level of recursion.
+A third thing i struggled with in the article was the focus on prefix vs. infix. Basically it seemed to me that it if ex. I only have number literals and the ~Add~ and ~substract~ operators in my language, it does not really matter that ~add~ and ~subtract~ are infix operators. I can apply them as soon as i have parsed the next literal. with a single level of recursion.
 
-
-
-Let parse expr tokens =
-
+#+begin_src
+let parse expr tokens =
    Let lhs = tokens.head
-
    Let op = tokens.skip1.head
-
    Let expr = (op, lhs, parse tokens.skip2
+#+end_src
 
+This only breaks when I start to have different binding power between operators, once we introduce ~multiply~ or ~divide~ operators I cannot apply my operators immediately; I have to discover if the next token is followed by an operator of greater power, and then apply that first. So infix is really just a pre-requisite, it’s operators with unequal bindingpower that really causes the headache.
 
+So lets look at the first thing that breaks the simple recursive parser above: ~A*B+C~ would be parsed as ~(* A (+ (B C))~ but should of course be ~(+ (C (* A B))~. Lets track how the Pratt parser gets it right:
 
-This only breaks when i start to have different bindingpower between operators, once i introduce multiply or divide operator I cannot apply my operators immediately, i have to discover if the next token is followed by an operator of greater power, and then apply that first. So infix is really just a pre-requisite, it’s operators with unequal bindingpower that really causes the headache.
-
-
-
-So lets look at the first thing that breaks the parser above: A*B+C would be parsed as (* A (+ (B C)) but should of course be (+ (C (* A B)). Lets track how the Pratt parser gets it right:
-
-
-
-Parse ,(* A B… ,
-Recurse down to finish the expression Here there are two ways of doing it: we can recursively form the next expression inside the outer expression. Equivalent to the simple recursive decent parser above. Or, the other option, to discover that the next operator + is weaker binding than * and instead finish the expression by using what has been parsed so far as the inner left hand side of a new outer expression (formed by the outmost parser)
-
+1. Parse ~(* A B…~.
+2. Recurse down to finish the expression Here there are two ways of doing it: 
+  2a. We can recursively form the next expression inside the outer expression. Equivalent to the simple recursive decent parser above. We would get ~(* A (? B ?))~ Or: 
+  2b. Discover that the next operator ~+~ is weaker binding than ~*~ and instead finish the expression by using what has been parsed so far as the inner left hand side of a new outer expression (formed by the outmost parser) ~(? (* A B) ?)~.
 
 More generally it helped me to think in terms of building the tree representation of the s-expression. In the simple recursive decent parser my only choice is to build a very unbalanced tree, every operator parsed grows the right hand side of the tree one level deeper. The pratt parser gains the ability to promote a new operator to the top of the tree, appointing what we have seen so far to the lhs of the new root and continuing construction of the rhs. 
 
-
-
-```picture of rhs tree 
-
+#+CAPTION: Right wing tree
+#+START_SRC mermaid
 flowchart TD
-
     OP((+)) --> A((A))
-
     OP --> OP2((+))
-
     OP2 --> B((B))
-
     OP2 --> C((C)) ``
+#+END SRC
 
- 
+In the Pratt parser we can also keep recursing, i.e. growing down the right hand side, but once we pop back out is the promotion moment, at that point a finished expression is formed and the next operator is promoted to apply with that expression on the lhs, rather than inside its rhs as would normally be the case. It becomes a parent rather than a child in the tree view.
 
-In the Pratt parser we can also keep recursing, i.e. growing down the right hand side, but once we pop back out is the promotion moment,  at that point a finished expression is formed and the next operator is promoted to apply with that expression on the lhs, rather than inside its rhs as would normally be the case. It becomes a parent rather than a child in the tree view.
+#+START_SRC F#
+let rhs, rhsRest = ParseFromLiteral rest op.RightBindingPower
+     ▲--parsed rhs, formed lhs --▼                
+ParseFromOperator (Expression(op, lhs, rhs))  rhsRest
+#+END_SRC 
 
 
 
-``picture of two trees, where the right is the left wit a promoted child
+#+CAPTION picture of two trees, where the right is the left wit a promoted child
 
 Left
 
