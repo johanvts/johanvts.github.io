@@ -49,6 +49,7 @@ So lets look at the first thing that breaks the simple recursive parser above: ~
 
 More generally it helped me to think in terms of building the tree representation of the s-expression. In the simple recursive decent parser my only choice is to build a very unbalanced tree, every operator parsed grows the right hand side of the tree one level deeper. The pratt parser gains the ability to promote a new operator to the top of the tree, appointing what we have seen so far to the lhs of the new root and continuing construction of the rhs. 
 
+{{< figure src="a+b+c.png" width="400px">}}
 #+CAPTION: Right wing tree
 #+begin_src mermaid
 flowchart TD
@@ -67,7 +68,7 @@ ParseFromOperator (Expression(op, lhs, rhs))  rhsRest
 #+END_SRC 
 
 
-
+{{< figure src="correction.png" width="400px">}}
 #+CAPTION: picture of two trees, where the right is the left wit a promoted child
 #+BEGIN_SRC mermaid
 flowchart TD
