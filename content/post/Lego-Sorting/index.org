@@ -22,7 +22,7 @@ When your viewport features just one brick, you can click "Change location" and 
 Next time you see brick `11127` it will tell you where to sort the brick, here I entered `Box1` as the location for this brick.
 {{< figure src="box1.jpg" width="800px">}}
 
-The other two buttons let you import/exprt your locations as csv files. Remember to export your data before closing the browser so you can resume next time.
+The other two buttons let you import/export your locations as .csv files. Remember to export your data before closing the browser so you can import it next time.
 
 That's it really.
 
