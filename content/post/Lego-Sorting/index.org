@@ -1,0 +1,55 @@
+#+TITLE: Lego Sorting via F# WebAssembly
+#+DATE: 2026-09-28
+#+DRAFT: false
+
+If you came here to sort your Lego, let's get started.
+To use my lego sorter you need a webcamera or phone set up in an about 45° angle on a table or other flat, preferably white background.
+When you have that go here [[https://www.johansivertsen.com/brickbox][www.johansivertsen.com/brickbox]]. Be aware that images recognized as bricks get stored and send off via. the internet so don't film anything personal.
+
+The software learns to recognize the background and differentieate it from the bricks, so it works best if the background is relatively stable, but handheld phones also do work.
+
+Then place your brick(s) inside the field of view. You should see something like this:
+{{< figure src="unlocated.jpg" width="800px">}}
+
+This means the the brik in question has been recognized as brik `11127`.
+If you want to verify this you can [[https://www.bricklink.com/v2/catalog/catalogitem.page?P=11127#T=C][look up the brick online]]. You will most likely find that the identification is correct.
+The identification is done via www.brickognize.com which is excellent!
+
+It also says 'Unlocated' this tells you that this brick does not currently have a location.
+When your viewport features just one brick, you can click "Change location" and set the location of that brick in your system.
+
+Next time you see brick `11127` it will tell you where to sort the brick, here I entered `Box1` as the location for this brick.
+{{< figure src="box1.jpg" width="800px">}}
+
+The other two buttons let you import/exprt your locations as csv files. Remember to export your data before closing the browser so you can resume next time.
+
+That's it really.
+
+* How/Why (Lego)
+
+We quickly ended up with thousands of lego-bricks in a few plastic tubs. There are plenty of officiial and unofficial instructions for making new builds online, but building anything from an instruction is more or less impossible (or at least very slow) when you have to find every piece (if you have it) amough thousands of other pieces.
+Hence I felt the need to sort my lego, but the issue with that is that if I sort it, I might know where stuff is (at least for a while), but my kids don't. And vice versa if they sort it.
+We neede a system that would allow us to persist and share the locations of the bricks. And thus the project was born.
+ 
+For my personal setup I now use a bunch of platics boxes from Auer, the have the best plastic boxes imo. It makes it so much more fun to build that you don't have to roam through thousands of unsorted bricks. You can of course use the pictures in the Lego instructions to finds bricks in your system once everyhing is nicely sorted.
+
+* How/Why (Software)
+
+This project was made as en exploration into web-assembly. I had heard that .net code runs in WASM now, but I really wanted to see what I could do with that.
+Previously, like for my port of the [[https://www.johansivertsen.com/post/rapportgenerator/][Stocastic Report Generator]] I had hosted logic on Azure, but for this application you need to run an image recogniztion pipeline,
+something that might cost real compute so perfect for seeing what I could do in the browser.
+
+When you start to Google .NET and Wasm, you will see the word `Blazor` all over. Blazor is a system that lets you mix C# and html and will figure out how to make everything interact
+behind the curtains. I wasn't too happy with that as a lerning experience so I decided to do everything I could to avoid Blazor here.
+
+So essentially it works like this:
+The browser loads the webpage (html),
+the webpage tells the browser to load some  javasript (dotnet.js),
+the js execution layer starts a web-assembly CLR that is able to exeucte my F# code,
+it further is able to pass intstrcutions between the CLR and the browser/js layer as requested by `[JSImport]/[JSExport]` attributes in the source code.
+
+My project heavily use OpenCV via [[https://github.com/shimat/opencvsharp][OpenCVSharp]] which is also able to run in web-assembly. Getthing this dependecy to compile was probably the main challange here really.
+And I only succeded after finding this [[https://github.com/shimat/opencvsharp_blazor_sample][Blazor sample]], looking the the csproj there I was less upset with myself for failing to make it compile initially :)
+
+But with that done it acually works, everything is running in browser. The only non-client parts are the shipping off of the image to the recognition pipeline and for storage.
+The detection of bricks, cropping of images, csv-import/export and location management is all running in F# via. web-assembly and without `Blazor`.
