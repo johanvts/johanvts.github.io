@@ -2,7 +2,8 @@
 #+DATE: 2026-09-28
 #+DRAFT: false
 
-If you came here to sort your Lego, let's get started.
+If you wan't to learn about F#/Wasm keep scrolling a bit.
+If you came to sort your Lego/ let's get started!
 To use my lego sorter you need a webcamera or phone set up in an about 45° angle on a table or other flat, preferably white background.
 When you have that go here [[https://www.johansivertsen.com/brickbox][www.johansivertsen.com/brickbox]]. Be aware that images recognized as bricks get stored and send off via. the internet so don't film anything personal.
 
