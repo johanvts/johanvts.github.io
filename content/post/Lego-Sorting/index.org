@@ -37,7 +37,7 @@ For my personal setup I now use a bunch of platics boxes from Auer, they have th
 * How/Why (Software)
 
 This project was made as en exploration into web-assembly. I had heard that .net code runs in WASM now, but I really wanted to see what I could do with that.
-Previously, like for my port of the [[https://www.johansivertsen.com/post/rapportgenerator/][Stocastic Report Generator]] I had hosted logic on Azure, but for this application you need to run an image recogniztion pipeline,
+Previously, like for my port of the [[https://www.johansivertsen.com/post/rapportgenerator/][Stocastic Report Generator]] I had hosted logic on Azure, but for this application you need to run an image recognition pipeline,
 something that might cost real compute so perfect for seeing what I could do in the browser.
 The ability to share your software with the world, without having to risk incurring massive cloud costs, and withhout having the go through the hassel of downloading and installing stuff was very exciting to me as a software developer.
 
