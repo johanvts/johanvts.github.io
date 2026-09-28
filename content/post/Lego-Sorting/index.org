@@ -3,7 +3,7 @@
 #+DRAFT: false
 
 If you wan't to learn about F#/Wasm keep scrolling a bit.
-If you came to sort your Lego/ let's get started!
+If you came to sort your Legos, let's get started!
 To use my lego sorter you need a webcamera or phone set up in an about 45° angle on a table or other flat, preferably white background.
 When you have that go here [[https://www.johansivertsen.com/brickbox][www.johansivertsen.com/brickbox]]. Be aware that images recognized as bricks get stored and send off via. the internet so don't film anything personal.
 
@@ -44,11 +44,12 @@ The ability to share your software with the world, without having to risk incurr
 When you start to Google .NET and Wasm, you will see the word `Blazor` all over. Blazor is a system that lets you mix C# and html and will figure out how to make everything interact
 behind the curtains. I wasn't too happy with that as a lerning experience so I decided to do everything I could to avoid Blazor here.
 
-So essentially it works like this:
-The browser loads the webpage (html),
-the webpage tells the browser to load some javasript (dotnet.js),
-the JS execution layer starts a web-assembly CLR that is able to exeucte my F# code,
-it further is able to pass instructions between the CLR and the browser/js layer as requested by `[JSImport]/[JSExport]` attributes in the source code.
+** So essentially it works like this:
+1. The browser loads the webpage (html),
+2. The webpage tells the browser to load some javascript (dotnet.js),
+3. The JS execution layer starts a web-assembly CLR that is able to exeucte my F# code.
+   So my F# is turned into CIL, interpreted via. a virtual machine (the .net CLR) into web-assembly, which is then interperted via another virtual machine (running in the browser) into native instructions for the client machine.
+4. The web-assembly CLR is able to pass instructions between the CLR and the browser/js layer as requested by `[JSImport]/[JSExport]` attributes in the source code.
 
 My project heavily use OpenCV via [[https://github.com/shimat/opencvsharp][OpenCVSharp]] which is also able to run in web-assembly. Getthing this dependecy to compile was probably the main challange here really.
 And I only succeded after finding this [[https://github.com/shimat/opencvsharp_blazor_sample][Blazor sample]]. Looking the the csproj there I was less upset with myself for failing to make it compile initially :)
