@@ -39,10 +39,10 @@ For my personal setup I now use a bunch of platics boxes from Auer, they have th
 This project was made as en exploration into web-assembly. I had heard that .net code runs in WASM now, but I really wanted to see what I could do with that.
 Previously, like for my port of the [[https://www.johansivertsen.com/post/rapportgenerator/][Stocastic Report Generator]] I had hosted logic on Azure, but for this application you need to run an image recognition pipeline,
 something that might cost real compute so perfect for seeing what I could do in the browser.
-The ability to share your software with the world, without having to risk incurring massive cloud costs, and withhout having the go through the hassel of downloading and installing stuff was very exciting to me as a software developer.
+The ability to share your software with the world, without having to risk incurring massive cloud costs, and withhout having the user go through the hassel of downloading and installing stuff was very exciting to me as a software developer.
 
 When you start to Google .NET and Wasm, you will see the word `Blazor` all over. Blazor is a system that lets you mix C# and html and will figure out how to make everything interact
-behind the curtains. I wasn't too happy with that as a lerning experience so I decided to do everything I could to avoid Blazor here.
+behind the curtains. I wasn't too happy with that as a learning experience so I decided to do everything I could to avoid Blazor here.
 
 ** So essentially it works like this:
 1. The browser loads the webpage (html),
