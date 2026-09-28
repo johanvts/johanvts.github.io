@@ -7,7 +7,7 @@ If you came to sort your Lego/ let's get started!
 To use my lego sorter you need a webcamera or phone set up in an about 45° angle on a table or other flat, preferably white background.
 When you have that go here [[https://www.johansivertsen.com/brickbox][www.johansivertsen.com/brickbox]]. Be aware that images recognized as bricks get stored and send off via. the internet so don't film anything personal.
 
-The software learns to recognize the background and differentieate it from the bricks, so it works best if the background is relatively stable, but handheld phones also do work.
+The software learns to recognize the background and differentiate it from bricks, so it works best if the background is relatively stable, but handheld phones also do work.
 
 Then place your brick(s) inside the field of view. You should see something like this:
 {{< figure src="unlocated.jpg" width="800px">}}
