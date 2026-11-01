@@ -1,0 +1,13 @@
+---
+title: "Flugten Fra Uranienborg"
+date: 2026-11-01T20:54:00+02:00
+draft: false
+comments: true
+---
+I recently went to the math-café with in my 3rd graders class and several
+people there (myself included) where looking for som fun math-based games
+for their kids and coming up short.
+
+So, Claude and I made our own, have fun!
+
+[[https://www.johansivertsen.com/flugten][Flugten Fra Uranienborg]]
