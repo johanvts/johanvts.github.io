@@ -12,7 +12,9 @@ so its legs reach the floor; the machines are scaled to 300 px high and hang fro
 
 Clean-up with Pillow: `box.png` and `box-ribbon.png` came on a grey studio background (the
 reference image's) and were flood-filled from the corners and cut out; `box-ribbon.png` also lost
-its grey shadow. Then all boxes were trimmed; the code scales every stage to the same width.
+its grey shadow. Both then had a light fringe: the alpha was eroded 2 px and light grey pixels within
+4 px of the edge removed. All boxes were trimmed; the code scales every stage to the same width.
+`basket.png` is drawn twice: whole behind the present, and cropped below its front rim (y 66) in front.
 
 ```bash
 A=src/rooms/giftmachine/assets; G="python3 scripts/gen-art.py"
