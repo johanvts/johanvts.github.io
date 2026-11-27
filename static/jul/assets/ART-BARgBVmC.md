@@ -36,3 +36,11 @@ $G $A/box.png --size 120x120 --cutout --screen magenta --ref $A/present.png "The
 $G $A/box-paper.png --size 120x120 --cutout --screen magenta --ref $A/present.png "The same box as in the reference image, same size, shape and angle, wrapped in the same shiny red paper, but with no ribbon and no bow."
 $G $A/box-ribbon.png --size 120x120 --cutout --screen magenta --ref $A/present.png "The same box as in the reference image, same size, shape and angle, wrapped in the same shiny red paper with the same gold ribbon crossing it, but with no bow on top."
 ```
+
+## Decorations
+Shared Christmas props, generated once and copied into each room that uses them:
+
+```bash
+A=src/rooms/giftmachine/assets; G="python3 scripts/gen-art.py"
+$G $A/wreath.png --size 140x140 --cutout --screen magenta "One round Christmas wreath of fir with a big red bow, red berries, pine cones and gold baubles. Only this one object, seen exactly front-on, fully visible. Nothing else: no wall, no room, no floor, no background objects."
+```
