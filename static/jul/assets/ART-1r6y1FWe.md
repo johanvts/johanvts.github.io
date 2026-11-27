@@ -52,14 +52,17 @@ A=src/rooms/wrapping/assets; G="python3 scripts/gen-art.py"
 $G $A/arrow.png --size 200x120 --cutout --screen magenta "A festive carved wooden arrow sign pointing to the right, painted Christmas red with a gold painted edge, a small sprig of fir with two red berries tied on its tail end with a gold ribbon, blank, no writing. Only this one object, seen exactly front-on, flat, no perspective, fully visible. Nothing else: no wall, no room, no floor, no background objects." > $S/rd/arrow.log 2>&1
 ```
 
-## Redraw to match the hall
-`bg.jpg` were redrawn with the workshop hall as the first reference and `$REF`, a crop
-(262,380,600,700) of `src/rooms/workshop/assets/bg.jpg` (this room's area of the hall), as the second.
-Of two background candidates the one with a flat wall and the clearest free space was kept.
-This replaces the earlier background prompt above.
+## Matching the hall
+`bg.jpg` is not generated: it is the workshop hall itself (`src/rooms/workshop/assets/bg.jpg`),
+cropped to what lies behind the wrapping table there (box (250,110,890,470): the Christmas tree,
+the barn doors and the sleigh), scaled to 1280x720, blurred (Gaussian radius 9) and darkened to 92 %.
+In front of it, sharp: the easel (behind the board), the rack (behind the rolls) and the table
+(`table.png`, 746x300, the back edge of its top at y 20, shown 1200x300). `$REF` below is the crop
+(262,380,600,700) of the hall, its wrapping table.
 
 ```bash
 A=src/rooms/wrapping/assets; G="python3 scripts/gen-art.py"
-$G $A/bg.jpg --size 1280x720 --ref src/rooms/workshop/assets/bg.jpg --ref $REF "A completely flat back wall of the gift-wrapping corner of Santa's workshop, seen exactly straight-on, filling the whole image from left edge to right edge with no side walls and no corners, warm bright festive candlelight, the same honey-coloured log walls, fir garlands with red bows and baubles, woven paper hearts and cheerful style as the first reference image (Santa's workshop hall), and like the wrapping table of the second reference image. At the far left a candle-lit Christmas tree with woven paper hearts stands in front of the wall, filling the leftmost fifth of the image. A long plain oak table seen from the front runs from about a quarter of the width to the right edge, its bare empty top edge at about 63 percent of the image height. The log wall above the table, in the middle and right of the image, is plain and empty for things to be hung on it. No wrapping paper, no presents, no rolls, no shelves, no windows, no people." > $S/rd/w$v.log 2>&1
-
+$G $A/table.png.png --size 1100x300 --cutout --screen magenta --ref $REF "One long sturdy oak wrapping table like the one in the reference image, seen from the front and slightly from above, its long empty top surface clearly visible, thick legs and a low shelf, a few sprigs of fir and a red ribbon curl lying at one end. Only this one object, seen exactly front-on, flat, no perspective, fully visible. Nothing else: no wall, no room, no floor, no background objects."
+$G $A/rack.png.png --size 560x480 --cutout --screen magenta "One tall free-standing wooden rack for wrapping paper: two upright oak posts on small feet joined by two horizontal oak cross beams, one near the top and one in the middle, with a fir garland and a red bow on the top beam, empty, nothing hanging on it. Only this one object, seen exactly front-on, flat, no perspective, fully visible. Nothing else: no wall, no room, no floor, no background objects."
+$G $A/easel.png.png --size 520x560 --cutout --screen magenta "One sturdy wooden tabletop easel of oak, seen from the front, its two front legs and a ledge, with a sprig of fir and a red bow at the top, empty, nothing on it. Only this one object, seen exactly front-on, flat, no perspective, fully visible. Nothing else: no wall, no room, no floor, no background objects."
 ```

@@ -31,13 +31,6 @@ The first `note.png` (without "only one object … nothing else at all") came wi
 The first background had big bells, harnesses and lanterns that dwarfed the stalls; ask for a plain
 wall. The stalls are drawn overlapping by a fifth (neighbours share a post) so they can be big.
 
-## Decorations
-Shared Christmas props, generated once and copied into each room that uses them:
-
-```bash
-A=src/rooms/stable/assets; G="python3 scripts/gen-art.py"
-$G $A/wreath.png --size 140x140 --cutout --screen magenta "One round Christmas wreath of fir with a big red bow, red berries, pine cones and gold baubles. Only this one object, seen exactly front-on, fully visible. Nothing else: no wall, no room, no floor, no background objects."
-```
 
 ## The way back
 `arrow.png` (shared by all task rooms) is drawn flipped or turned in code to point the way to the hall.
@@ -50,11 +43,12 @@ $G $A/arrow.png --size 200x120 --cutout --screen magenta "A festive carved woode
 ## Redraw to match the hall
 `bg.jpg` and `stall.png` were redrawn with the workshop hall as the first reference and `$REF`, a crop
 (800,200,1110,640) of `src/rooms/workshop/assets/bg.jpg` (this room's area of the hall), as the second.
-Of two background candidates the one with a flat wall and the clearest free space was kept.
+Of two background candidates the one with a flat wall and the windows at deer height was kept:
+the windows (y 200–440) show through the open top of the stalls, as in the hall.
 This replaces the earlier background prompt above.
 
 ```bash
 A=src/rooms/stable/assets; G="python3 scripts/gen-art.py"
-$G $A/bg.jpg --size 1280x720 --ref src/rooms/workshop/assets/bg.jpg --ref $REF "A completely flat back wall of the reindeer stable corner of Santa's workshop, seen exactly straight-on, filling the whole image from left edge to right edge with no side walls and no corners, warm bright festive candlelight, the same honey-coloured log walls, fir garlands with red bows and baubles, woven paper hearts and cheerful style as the first reference image (Santa's workshop hall), with straw scattered on a plank floor strip along the bottom sixth of the image. A fir garland with red bows and baubles along the very top edge, two small brass lanterns high on the wall near the far left and far right edges. The wall is otherwise plain and empty: no stalls, no animals, no doors, no windows, no furniture, no bells, no harnesses, no people." > $S/rd/s$v.log 2>&1
+$G $A/bg.jpg --size 1280x720 --ref src/rooms/workshop/assets/bg.jpg --ref $REF "The back wall of the reindeer stable corner of Santa's workshop, exactly like the stable in the second reference image and in the right part of the first: honey-coloured log wall, seen exactly straight-on, filling the whole image from left edge to right edge with no side walls and no corners, warm candlelight. In the right three quarters of the wall, at middle height, a row of three small-paned windows with snow on the sills showing a snowy blue winter night outside, evenly spaced. A fir garland with red bows along the very top edge. The lower part of the wall is plain logs; straw on a plank floor strip along the bottom sixth. No stalls, no animals, no furniture, no lanterns, no people."
 $G $A/stall.png --size 160x300 --cutout --screen magenta --people --ref $REF "One narrow red-painted wooden reindeer stall like those in the reference image, seen exactly front-on: two posts with a sprig of fir and a small red bow on each, a low red half door of planks with iron hinges, and a friendly reindeer with big antlers looking out over the half door straight at the viewer, a small blank wooden name board on top. Only this one stall, nothing else." > $S/rd/stall.log 2>&1
 ```
