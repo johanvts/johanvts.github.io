@@ -3,7 +3,7 @@
 Early-90s pre-rendered CGI à la Myst with a Christmas theme, generated with
 `scripts/gen-art.py` (Gemini Flash unless `--model lite`). The script adds the shared style prompt.
 
-`doorframe.png` and `plaque.png` are copies of the workshop's, `window.png` of `examples/gears/`.
+png` are copies of the workshop's, `window.png` of `examples/gears/`.
 `peek-workshop.jpg` is shared by all task rooms. Drawn in code: the sums, the ticks and numbers
 on the rails, the moving seams on the belt, the steam and smoke.
 
@@ -18,7 +18,6 @@ its grey shadow. Both then had a light fringe: the alpha was eroded 2 px and lig
 
 ```bash
 A=src/rooms/giftmachine/assets; G="python3 scripts/gen-art.py"
-$G $A/peek-workshop.jpg --size 244x578 "A tall narrow view straight through an open doorway into Santa's great workshop hall, seen from the threshold, filling the entire image edge to edge, no door frame, no door: honey-coloured log walls, fir garlands with red ribbons, a big brass five-armed candlestick, workbenches with wooden toys, warm firelight."
 $G $A/bg.jpg --size 1280x720 "A completely flat back wall of a workshop room seen exactly straight-on, filling the whole image from left edge to right edge with no side walls and no corners: dark timber planks with copper pipes running along the very top edge, a few hanging brass tools, warm candlelight, a worn plank floor strip along the bottom eighth of the image. The rest of the wall is completely empty: no machines, no doors, no furniture."
 $G $A/lever.png --size 70x240 --cutout --screen magenta "One long straight brass lever arm standing exactly vertical, with a round red-painted wooden knob on top and a round brass pivot hub at the bottom, seen exactly front-on, nothing else."
 $G $A/basket.png --size 240x130 --cutout --screen magenta "An empty wide woven wicker basket lined with straw, seen exactly front-on at eye level, standing on the floor."
@@ -43,4 +42,12 @@ Shared Christmas props, generated once and copied into each room that uses them:
 ```bash
 A=src/rooms/giftmachine/assets; G="python3 scripts/gen-art.py"
 $G $A/wreath.png --size 140x140 --cutout --screen magenta "One round Christmas wreath of fir with a big red bow, red berries, pine cones and gold baubles. Only this one object, seen exactly front-on, fully visible. Nothing else: no wall, no room, no floor, no background objects."
+```
+
+## The way back
+`arrow.png` (shared by all task rooms) is drawn flipped or turned in code to point the way to the hall.
+
+```bash
+A=src/rooms/giftmachine/assets; G="python3 scripts/gen-art.py"
+$G $A/arrow.png --size 200x120 --cutout --screen magenta "A festive carved wooden arrow sign pointing to the right, painted Christmas red with a gold painted edge, a small sprig of fir with two red berries tied on its tail end with a gold ribbon, blank, no writing. Only this one object, seen exactly front-on, flat, no perspective, fully visible. Nothing else: no wall, no room, no floor, no background objects." > $S/rd/arrow.log 2>&1
 ```
