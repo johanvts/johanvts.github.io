@@ -45,16 +45,17 @@ A=src/rooms/giftmachine/assets; G="python3 scripts/gen-art.py"
 $G $A/arrow.png --size 200x120 --cutout --screen magenta "A festive carved wooden arrow sign pointing to the right, painted Christmas red with a gold painted edge, a small sprig of fir with two red berries tied on its tail end with a gold ribbon, blank, no writing. Only this one object, seen exactly front-on, flat, no perspective, fully visible. Nothing else: no wall, no room, no floor, no background objects." > $S/rd/arrow.log 2>&1
 ```
 
-## The three toys: interim, to be generated
-The train, the teddy bear and the doll are drawn in code (`drawToy` in `room.ts`) because the Gemini
-credit ran out (HTTP 402). Generate these when it is back; `drawToy` uses `toy-<id>` automatically once
-it is in the `ART` table (add `'toy-train': 'png', 'toy-bear': 'png', 'toy-doll': 'png'`).
-
-```bash
-A=src/rooms/giftmachine/assets; G="python3 scripts/gen-art.py"
-$G $A/toy-train.png --size 160x110 --cutout --screen magenta "A small old-fashioned wooden toy steam train engine painted red and green with gold trim and black wheels, a little chimney, seen from the side. Only this one object, seen from the front and slightly from above, fully visible. Nothing else: no wall, no room, no table, no floor, no background objects."
-$G $A/toy-bear.png --size 110x140 --cutout --screen magenta "A small cuddly brown teddy bear sitting upright, with a red ribbon bow at its neck, button eyes. Only this one object, seen from the front and slightly from above, fully visible. Nothing else: no wall, no room, no table, no floor, no background objects."
-$G $A/toy-doll.png --size 90x150 --cutout --screen magenta "A small old-fashioned wooden peg doll in a red dress with a white apron and yellow braids, standing upright. Only this one object, seen from the front and slightly from above, fully visible. Nothing else: no wall, no room, no table, no floor, no background objects."
-```
 
 `note.png` (the wish list) is a copy of the stable's.
+
+## The three toys
+Not generated (the Gemini credit ran out): free images from Wikimedia Commons, cut out of their plain
+backgrounds with a border flood fill, trimmed and scaled to at most 220 px.
+
+| File | Source | Licence | Changes |
+|---|---|---|---|
+| `toy-train.png` | [Chris Makrenos, *Toy Locomotive*, 1935–1942](https://commons.wikimedia.org/wiki/File:Chris_Makrenos,_Toy_Locomotive,_1935-1942,_NGA_28907.jpg), watercolour, National Gallery of Art, Index of American Design | CC0 | cropped (30,40,470,300) from the 500 px version, flipped to face right, cut out |
+| `toy-bear.png` | [Steiff Teddy Bear](https://commons.wikimedia.org/wiki/File:Steiff_Teddy_Bear.jpg), museum photo | Public domain | cut out; the museum label on its right paw inpainted (OpenCV Telea) |
+| `toy-doll.png` | [Early Schoenhut Wooden Doll With Blue Dress](https://commons.wikimedia.org/wiki/File:Early_Schoenhut_Wooden_Doll_With_Blue_Dress.jpg), museum photo | Public domain | cut out (a strict colour limit so the pale blue dress stays) |
+
+If any is missing, `drawToy` in `room.ts` draws a simple stand-in in code.
