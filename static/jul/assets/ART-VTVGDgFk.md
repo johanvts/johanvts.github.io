@@ -36,13 +36,6 @@ $G $A/box-paper.png --size 120x120 --cutout --screen magenta --ref $A/present.pn
 $G $A/box-ribbon.png --size 120x120 --cutout --screen magenta --ref $A/present.png "The same box as in the reference image, same size, shape and angle, wrapped in the same shiny red paper with the same gold ribbon crossing it, but with no bow on top."
 ```
 
-## Decorations
-Shared Christmas props, generated once and copied into each room that uses them:
-
-```bash
-A=src/rooms/giftmachine/assets; G="python3 scripts/gen-art.py"
-$G $A/wreath.png --size 140x140 --cutout --screen magenta "One round Christmas wreath of fir with a big red bow, red berries, pine cones and gold baubles. Only this one object, seen exactly front-on, fully visible. Nothing else: no wall, no room, no floor, no background objects."
-```
 
 ## The way back
 `arrow.png` (shared by all task rooms) is drawn flipped or turned in code to point the way to the hall.
@@ -51,3 +44,17 @@ $G $A/wreath.png --size 140x140 --cutout --screen magenta "One round Christmas w
 A=src/rooms/giftmachine/assets; G="python3 scripts/gen-art.py"
 $G $A/arrow.png --size 200x120 --cutout --screen magenta "A festive carved wooden arrow sign pointing to the right, painted Christmas red with a gold painted edge, a small sprig of fir with two red berries tied on its tail end with a gold ribbon, blank, no writing. Only this one object, seen exactly front-on, flat, no perspective, fully visible. Nothing else: no wall, no room, no floor, no background objects." > $S/rd/arrow.log 2>&1
 ```
+
+## The three toys: interim, to be generated
+The train, the teddy bear and the doll are drawn in code (`drawToy` in `room.ts`) because the Gemini
+credit ran out (HTTP 402). Generate these when it is back; `drawToy` uses `toy-<id>` automatically once
+it is in the `ART` table (add `'toy-train': 'png', 'toy-bear': 'png', 'toy-doll': 'png'`).
+
+```bash
+A=src/rooms/giftmachine/assets; G="python3 scripts/gen-art.py"
+$G $A/toy-train.png --size 160x110 --cutout --screen magenta "A small old-fashioned wooden toy steam train engine painted red and green with gold trim and black wheels, a little chimney, seen from the side. Only this one object, seen from the front and slightly from above, fully visible. Nothing else: no wall, no room, no table, no floor, no background objects."
+$G $A/toy-bear.png --size 110x140 --cutout --screen magenta "A small cuddly brown teddy bear sitting upright, with a red ribbon bow at its neck, button eyes. Only this one object, seen from the front and slightly from above, fully visible. Nothing else: no wall, no room, no table, no floor, no background objects."
+$G $A/toy-doll.png --size 90x150 --cutout --screen magenta "A small old-fashioned wooden peg doll in a red dress with a white apron and yellow braids, standing upright. Only this one object, seen from the front and slightly from above, fully visible. Nothing else: no wall, no room, no table, no floor, no background objects."
+```
+
+`note.png` (the wish list) is a copy of the stable's.
