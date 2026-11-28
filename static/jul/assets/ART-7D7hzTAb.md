@@ -59,3 +59,16 @@ backgrounds with a border flood fill, trimmed and scaled to at most 220 px.
 | `toy-doll.png` | [Early Schoenhut Wooden Doll With Blue Dress](https://commons.wikimedia.org/wiki/File:Early_Schoenhut_Wooden_Doll_With_Blue_Dress.jpg), museum photo | Public domain | cut out (a strict colour limit so the pale blue dress stays) |
 
 If any is missing, `drawToy` in `room.ts` draws a simple stand-in in code.
+
+## The machines: making, shaping, painting
+The three machine heads were rebuilt with Pillow (and OpenCV inpainting) from the generated heads,
+since the Gemini credit had run out:
+- `station-make.png` is the old bow machine as it is: its hopper of gold chips reads as materials.
+- `station-shape.png` is the old paper machine without its paper roll (rows 53–129 dropped, the
+  bracket moved down onto the body).
+- `station-paint.png` is the old ribbon machine without its spool (rows 52–121 dropped) and without
+  the ribbon strip down its front (gold pixels in x 57–69 inpainted); nothing on top.
+- `materials.png`, the heap of materials machine 1 makes, is a photo of wood shavings:
+  [Trucioli legno 002](https://commons.wikimedia.org/wiki/File:Trucioli_legno_002.jpg), public domain,
+  cut out of its dark background (brightness threshold, largest blob), trimmed to 240 px wide.
+The bare toy is the toy image in grayscale with a grey-brown tint (`setPainted`).
