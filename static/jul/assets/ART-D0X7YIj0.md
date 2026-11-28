@@ -68,7 +68,9 @@ since the Gemini credit had run out:
   bracket moved down onto the body).
 - `station-paint.png` is the old ribbon machine without its spool (rows 52–121 dropped) and without
   the ribbon strip down its front (gold pixels in x 57–69 inpainted); nothing on top.
-- `materials.png`, the heap of materials machine 1 makes, is a photo of wood shavings:
-  [Trucioli legno 002](https://commons.wikimedia.org/wiki/File:Trucioli_legno_002.jpg), public domain,
-  cut out of its dark background (brightness threshold, largest blob), trimmed to 240 px wide.
+- `materials.png`, the heap of materials machine 1 makes, is two photos put together:
+  - the sticks: [Firewood cut from Mosunyana tree](https://commons.wikimedia.org/wiki/File:Firewood_cut_from_Mosunyana_tree.jpg),
+    CC0, cut off its white wall (low saturation and bright) and shaped as a mound;
+  - the wool: [A ball of yarn](https://commons.wikimedia.org/wiki/File:A_ball_of_yarn.jpg), CC0,
+    cut out (saturation inside an ellipse, convex hull) and recoloured from pink to red.
 The bare toy is the toy image in grayscale with a grey-brown tint (`setPainted`).
